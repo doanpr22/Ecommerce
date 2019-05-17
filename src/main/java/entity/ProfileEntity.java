@@ -31,7 +31,7 @@ public class ProfileEntity {
     private String address;
     private boolean gender;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate birthDate;
+    private LocalDate birthDay;
     private String position;
     
     @OneToOne(mappedBy = "profile")
@@ -55,7 +55,7 @@ public class ProfileEntity {
         this.phone = phone;
         this.address = address;
         this.gender = gender;
-        this.birthDate = birthDate;
+        this.birthDay = birthDate;
         this.position = position;
         this.users = users;
         this.customer = customer;
@@ -118,12 +118,12 @@ public class ProfileEntity {
         this.gender = gender;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public LocalDate getBirthDay() {
+        return birthDay;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthDay(LocalDate birthDay) {
+        this.birthDay = birthDay;
     }
 
     public String getPosition() {
@@ -157,6 +157,12 @@ public class ProfileEntity {
     public void setShipping(ShippingEntity shipping) {
         this.shipping = shipping;
     }
-    
+
+    @Override
+    public String toString() {
+        return "ProfileEntity{" + "id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", phone=" + phone + ", address=" + address + ", gender=" + gender + ", birthDay=" + birthDay + ", position=" + position + ", users=" + users + ", customer=" + customer + ", shipping=" + shipping + '}';
+    }
+
+  
     
 }

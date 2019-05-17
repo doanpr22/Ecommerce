@@ -5,6 +5,7 @@
  */
 package entity;
 
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,9 +13,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.ManyToAny;
 
 /**
  *
@@ -26,11 +28,11 @@ public class PromotionDestailsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "productId")
-    private ProductEntity product;
+    private List<ProductEntity> productlist;
     
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "promotionId")
     private PromotionEntity promotion;
 
@@ -45,12 +47,12 @@ public class PromotionDestailsEntity {
         this.id = id;
     }
 
-    public ProductEntity getProduct() {
-        return product;
+    public List<ProductEntity> getProductlist() {
+        return productlist;
     }
 
-    public void setProduct(ProductEntity product) {
-        this.product = product;
+    public void setProductlist(List<ProductEntity> productlist) {
+        this.productlist = productlist;
     }
 
     public PromotionEntity getPromotion() {
@@ -60,6 +62,6 @@ public class PromotionDestailsEntity {
     public void setPromotion(PromotionEntity promotion) {
         this.promotion = promotion;
     }
-    
+
     
 }

@@ -31,18 +31,9 @@ public class ProducersEntity {
     private String producerPhone;
     
     @OneToMany(mappedBy = "producer",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<ProducersEntity> producersList;
+    private List<ProductEntity> productlist;
 
     public ProducersEntity() {
-    }
-
-    public ProducersEntity(int id, String producerName, String producerAddress, String producerEmail, String producerPhone, List<ProducersEntity> producersList) {
-        this.id = id;
-        this.producerName = producerName;
-        this.producerAddress = producerAddress;
-        this.producerEmail = producerEmail;
-        this.producerPhone = producerPhone;
-        this.producersList = producersList;
     }
 
     public int getId() {
@@ -85,13 +76,14 @@ public class ProducersEntity {
         this.producerPhone = producerPhone;
     }
 
-    public List<ProducersEntity> getProducersList() {
-        return producersList;
+    public List<ProductEntity> getProductlist() {
+        return productlist;
     }
 
-    public void setProducersList(List<ProducersEntity> producersList) {
-        this.producersList = producersList;
+    public void setProductlist(List<ProductEntity> productlist) {
+        this.productlist = productlist;
     }
+
     
     
 }

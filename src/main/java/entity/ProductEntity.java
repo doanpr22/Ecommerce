@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -40,7 +41,7 @@ public class ProductEntity {
     @JoinColumn(name = "producerId")
     private ProducersEntity producer;
     
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
+    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "productlist")
     private List<PromotionDestailsEntity> promotionDestailsList;
     
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "product")
