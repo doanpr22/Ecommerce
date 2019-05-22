@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,7 +31,25 @@
     </head>
 
     <body>
-        
-            
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Full Name</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Phone</th>
+            </tr>
+
+            <c:forEach var="pro" items="${profileList}">
+                <tr>
+                    <td>${pro.id}</td>
+                    <td>${pro.firstname} ${pro.lastname}</td>
+                    <td>${pro.address}</td>
+                    <td>${pro.email}</td>
+                    <td>${pro.birthDate}</td>
+                </tr>
+            </c:forEach>
+        </table>
+
     </body>
 </html>

@@ -31,8 +31,7 @@ public class ProfileEntity {
     private String address;
     private boolean gender;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate birthDay;
-    private String position;
+    private LocalDate birthDate;
     
     @OneToOne(mappedBy = "profile")
     private UsersEntity users;
@@ -47,20 +46,6 @@ public class ProfileEntity {
     public ProfileEntity() {
     }
 
-    public ProfileEntity(int id, String firstname, String lastname, String email, String phone, String address, boolean gender, LocalDate birthDate, String position, UsersEntity users, CustomerEntity customer, ShippingEntity shipping) {
-        this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-        this.gender = gender;
-        this.birthDay = birthDate;
-        this.position = position;
-        this.users = users;
-        this.customer = customer;
-        this.shipping = shipping;
-    }
 
     public int getId() {
         return id;
@@ -118,22 +103,16 @@ public class ProfileEntity {
         this.gender = gender;
     }
 
-    public LocalDate getBirthDay() {
-        return birthDay;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
-    public void setBirthDay(LocalDate birthDay) {
-        this.birthDay = birthDay;
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
+   
+  
     public UsersEntity getUsers() {
         return users;
     }
@@ -157,12 +136,5 @@ public class ProfileEntity {
     public void setShipping(ShippingEntity shipping) {
         this.shipping = shipping;
     }
-
-    @Override
-    public String toString() {
-        return "ProfileEntity{" + "id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", phone=" + phone + ", address=" + address + ", gender=" + gender + ", birthDay=" + birthDay + ", position=" + position + ", users=" + users + ", customer=" + customer + ", shipping=" + shipping + '}';
-    }
-
-  
     
 }

@@ -25,7 +25,11 @@ public class EcommerceController {
     public String listBook(Model model){
         List<ProfileEntity> profileList=(List<ProfileEntity>) profileRepository.findAll();
         model.addAttribute("profileList",profileList);
-        model.addAttribute("profile", profileList.get(0));
        return "/listprofile";
+    }
+     @RequestMapping(value = "/boostrap")
+    public String boostrap(Model model){
+        
+       return "/boostrap";
     }
 }
