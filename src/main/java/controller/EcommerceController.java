@@ -27,9 +27,14 @@ public class EcommerceController {
         model.addAttribute("profileList",profileList);
        return "/listprofile";
     }
-     @RequestMapping(value = "/boostrap")
-    public String boostrap(Model model){
-        
-       return "/boostrap";
+    @RequestMapping(value = "/login")
+    public String login(Model model){
+        return "/login";
     }
+     
+     @RequestMapping(value = "/users/hellouser")
+    public String helloUser(Model model){
+        return "/user/hellouser";
+    }
+    
 }

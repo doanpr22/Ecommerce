@@ -23,12 +23,12 @@ import org.hibernate.annotations.ManyToAny;
  * @author USER
  */
 @Entity
-@Table(name = "PromotionDestails")
+@Table(name = "promotiondestails")
 public class PromotionDestailsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "productId")
     private List<ProductEntity> productlist;
     
