@@ -1,6 +1,6 @@
 <%-- 
-    Document   : heloadmin
-    Created on : May 25, 2019, 3:40:11 PM
+    Document   : helloadmin
+    Created on : May 28, 2019, 10:50:31 AM
     Author     : USER
 --%>
 
@@ -12,6 +12,10 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Hello Admin!</h1>
+       <form action="<%=request.getContextPath()%>/logout" method="POST">
+        <input type="submit" value="Logout"/>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+      </form> 
     </body>
 </html>

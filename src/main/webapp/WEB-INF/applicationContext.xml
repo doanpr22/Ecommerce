@@ -9,13 +9,6 @@
                            http://www.springframework.org/schema/security/spring-security.xsd
                            
 ">
-
-    <!--
-    <security:user-service id="userSecurity">
-        <security:user name="user1"  password="{noop}123456" authorities="ROLE_USER"/>
-        <security:user name="admin1" authorities="ROLE_ADMIN" password="{noop}abc123"/>
-    </security:user-service>
-    -->
     <security:authentication-manager>
         <security:authentication-provider>
             <security:jdbc-user-service data-source-ref="dataSource"
@@ -32,7 +25,7 @@
     <security:http auto-config="true" use-expressions="true">        
         <security:csrf disabled="true"/>
         
-       <security:intercept-url pattern="/login" access="isAnonymous()"/>
+        <security:intercept-url pattern="/login" access="isAnonymous()"/>
 
         <security:intercept-url pattern="/users/*" access="hasAnyRole('ROLE_USER,ROLE_ADMIN')"/>
         <security:intercept-url pattern="/admin/*" access="hasAnyRole('ROLE_ADMIN')"/>
@@ -41,8 +34,14 @@
                              login-processing-url="/j_spring_security_check" 
                              username-parameter="username"
                              password-parameter="password"
+                             authentication-success-handler-ref="myAuthenticationSuccessHandler"
         />
+        <security:logout invalidate-session="true" logout-url="/logout"  logout-success-url="/"/>
     </security:http>
+    
+    <bean id="myAuthenticationSuccessHandler"
+          class="redirectLogin.MySimpleUrlAuthenticationSuccessHandler" />
+    
     
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>

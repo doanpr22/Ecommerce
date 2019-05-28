@@ -11,6 +11,22 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script type=”text/javascript”>
+            function validateForm() {
+            var user = document.forms["login"]["username"].value;
+            if (user == "")
+            {
+            alert("Username không được để trống");
+            return false;
+            }
+            var pass=document.forms["login"]["password"].values;
+            if (pass == "")
+            {
+            alert("Password không được để trống");
+            return false;
+            }
+            }
+        </script>
     </head>
     <body>
         <h1> Login </h1>
@@ -23,6 +39,7 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
             <input type="submit" value="Login"/>
+
 
         </form>
 
