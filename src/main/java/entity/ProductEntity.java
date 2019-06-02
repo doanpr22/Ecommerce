@@ -13,9 +13,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -31,6 +32,7 @@ public class ProductEntity {
     private String productName;
     private double unitPrice;
     private String urlImage;
+    private String description;
     
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "categoryId")
@@ -40,12 +42,29 @@ public class ProductEntity {
     @JoinColumn(name = "producerId")
     private ProducersEntity producer;
     
-    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "productlist")
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
     private List<PromotionDestailsEntity> promotionDestailsList;
     
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "product")
     private OrderDestailsEntity orderDestails;
 
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @PrimaryKeyJoinColumn
+    private ProductDestailsEntity productDestails;
+    
+    @OneToMany(mappedBy = "product",cascade =CascadeType.ALL,fetch = FetchType.EAGER)
+    @PrimaryKeyJoinColumn
+    private List<ProductImageEntity> listUrlImage;
+
+    public List<ProductImageEntity> getListUrlImage() {
+        return listUrlImage;
+    }
+
+    public void setListUrlImage(List<ProductImageEntity> listUrlImage) {
+        this.listUrlImage = listUrlImage;
+    }
+    
     public ProductEntity() {
     }
 
@@ -123,6 +142,24 @@ public class ProductEntity {
     public void setOrderDestails(OrderDestailsEntity orderDestails) {
         this.orderDestails = orderDestails;
     }
+
+    public ProductDestailsEntity getProductDestails() {
+        return productDestails;
+    }
+
+    public void setProductDestails(ProductDestailsEntity productDestails) {
+        this.productDestails = productDestails;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     
+
     
 }

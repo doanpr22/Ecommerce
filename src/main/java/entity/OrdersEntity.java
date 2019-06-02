@@ -6,6 +6,7 @@
 package entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -47,6 +48,8 @@ public class OrdersEntity {
     private BillEntity bill;
 
     public OrdersEntity() {
+        orderDate=LocalDate.now();
+        orderDestailsList=new ArrayList<OrderDestailsEntity>();
     }
 
     public OrdersEntity(int id, LocalDate orderDate, LocalDate shipDate, CustomerEntity customer, List<OrderDestailsEntity> orderDestailsList, BillEntity bill) {
@@ -105,6 +108,19 @@ public class OrdersEntity {
     public void setBill(BillEntity bill) {
         this.bill = bill;
     }
-    
-    
+
+    public OrdersEntity addProduct(ProductEntity product) {
+        boolean i = true;
+        for (OrderDestailsEntity orderDestails : orderDestailsList) {
+            if (orderDestails.checkProduct(product)) {
+                orderDestails.addQuantity();
+                i=false;
+            }
+        }
+        if (i) {
+            orderDestailsList.add(new OrderDestailsEntity(1, product));
+        }
+        return this;
+    }
+
 }

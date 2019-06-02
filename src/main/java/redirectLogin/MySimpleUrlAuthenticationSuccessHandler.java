@@ -62,9 +62,9 @@ public class MySimpleUrlAuthenticationSuccessHandler
         }
  
         if (isUser) {
-            return "/users/hello";
+            return "/users/index";
         } else if (isAdmin) {
-            return "/admin/hello";
+            return "/admin/index";
         } else {
             throw new IllegalStateException();
         }

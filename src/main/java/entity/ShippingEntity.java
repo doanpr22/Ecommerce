@@ -59,5 +59,4 @@ public class ShippingEntity {
         this.profile = profile;
     }
 
-    
 }

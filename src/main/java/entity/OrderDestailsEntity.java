@@ -26,21 +26,26 @@ public class OrderDestailsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
+    private int quantity;
     @OneToOne
     @JoinColumn(name = "productId")
     private ProductEntity product;
     
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "orderId")
+    
+    
     private OrdersEntity order;
 
     public OrderDestailsEntity() {
+        product=new ProductEntity();
+        
     }
 
-    public OrderDestailsEntity(int id, ProductEntity product, OrdersEntity order) {
+    public OrderDestailsEntity(int id, ProductEntity product) {
         this.id = id;
         this.product = product;
-        this.order = order;
     }
 
     public int getId() {
@@ -66,6 +71,21 @@ public class OrderDestailsEntity {
     public void setOrder(OrdersEntity order) {
         this.order = order;
     }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
     
+    public boolean checkProduct(ProductEntity product){
+       return  (product.getId()==this.product.getId());
+       
+   }
+   public void addQuantity(){
+       quantity++;
+   }
     
 }

@@ -5,16 +5,12 @@
  */
 package entity;
 
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -22,21 +18,18 @@ import javax.persistence.Table;
  * @author USER
  */
 @Entity
-@Table(name = "promotiondestails")
-public class PromotionDestailsEntity {
+@Table(name = "productImage")
+public class ProductImageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne(fetch = FetchType.EAGER)
+    private String url;
+    
+    @ManyToOne
     @JoinColumn(name = "productid")
     private ProductEntity product;
-    
-    
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "promotionId")
-    private PromotionEntity promotion;
 
-    public PromotionDestailsEntity() {
+    public ProductImageEntity() {
     }
 
     public int getId() {
@@ -47,12 +40,12 @@ public class PromotionDestailsEntity {
         this.id = id;
     }
 
-    public PromotionEntity getPromotion() {
-        return promotion;
+    public String getUrl() {
+        return url;
     }
 
-    public void setPromotion(PromotionEntity promotion) {
-        this.promotion = promotion;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public ProductEntity getProduct() {
@@ -62,6 +55,6 @@ public class PromotionDestailsEntity {
     public void setProduct(ProductEntity product) {
         this.product = product;
     }
-
+    
     
 }

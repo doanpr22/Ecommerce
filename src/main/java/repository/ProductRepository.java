@@ -5,8 +5,7 @@
  */
 package repository;
 
-import entity.ProfileEntity;
-import java.io.Serializable;
+import entity.ProductEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author USER
  */
 @Repository
-public interface ProfileRepository extends CrudRepository<ProfileEntity, Integer>{
-    
+public interface ProductRepository extends CrudRepository<ProductEntity, Integer>{
+    public ProductEntity findById(int id);
 }
