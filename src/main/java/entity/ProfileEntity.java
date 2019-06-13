@@ -6,10 +6,12 @@
 package entity;
 
 import java.time.LocalDate;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -33,15 +35,11 @@ public class ProfileEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     
-    @OneToOne(mappedBy = "profile")
-    private UsersEntity users;
+    @OneToMany(mappedBy = "profile")
+    private List<UsersEntity> usersList;
     
-    
-    @OneToOne(mappedBy = "profile")
-    private CustomerEntity customer;
-    
-    @OneToOne(mappedBy = "profile")
-    private ShippingEntity shipping;
+    @OneToMany(mappedBy = "profile")
+    private List<ShippingEntity> shippingList;
 
     public ProfileEntity() {
     }
@@ -111,30 +109,23 @@ public class ProfileEntity {
         this.birthDate = birthDate;
     }
 
+    public List<UsersEntity> getUsersList() {
+        return usersList;
+    }
+
+    public void setUsersList(List<UsersEntity> usersList) {
+        this.usersList = usersList;
+    }
+
+    public List<ShippingEntity> getShippingList() {
+        return shippingList;
+    }
+
+    public void setShippingList(List<ShippingEntity> shippingList) {
+        this.shippingList = shippingList;
+    }
+
    
   
-    public UsersEntity getUsers() {
-        return users;
-    }
-
-    public void setUsers(UsersEntity users) {
-        this.users = users;
-    }
-
-    public CustomerEntity getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(CustomerEntity customer) {
-        this.customer = customer;
-    }
-
-    public ShippingEntity getShipping() {
-        return shipping;
-    }
-
-    public void setShipping(ShippingEntity shipping) {
-        this.shipping = shipping;
-    }
     
 }

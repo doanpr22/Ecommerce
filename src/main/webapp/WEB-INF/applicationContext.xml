@@ -26,7 +26,7 @@
         <security:csrf disabled="true"/>
         
         <security:intercept-url pattern="/login" access="isAnonymous()"/>
-
+        <security:intercept-url pattern="/customer/*" access="hasAnyRole('ROLE_CUSTOMER,ROLE_ADMIN')"/>
         <security:intercept-url pattern="/users/*" access="hasAnyRole('ROLE_USER,ROLE_ADMIN')"/>
         <security:intercept-url pattern="/admin/*" access="hasAnyRole('ROLE_ADMIN')"/>
        
@@ -36,7 +36,6 @@
                              password-parameter="password"
                              authentication-success-handler-ref="myAuthenticationSuccessHandler"
         />
-        <security:logout invalidate-session="true" logout-url="/logout"  logout-success-url="/"/>
     </security:http>
     
     <bean id="myAuthenticationSuccessHandler"
@@ -45,8 +44,9 @@
     
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/E_Commerce"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/E_Commerce1"/>
         <property name="username" value="root"/>
         <property name="password" value="ngay500k"/>
     </bean>
+   
 </beans>

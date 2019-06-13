@@ -1,0 +1,37 @@
+
+/* Full-width input fields */
+#form-login input[type=text], input[type=password] {
+    padding: 10px 10px;
+}
+
+/* Set a style for all buttons */
+#form-login button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    width: 100%;
+}
+
+#form-login{
+    border-radius: 20px;
+    padding: 10px;
+    background: #89D8EB;
+    position: fixed;
+    top: 80px;
+    right: 10px;
+    height: 350px;
+}
+#form-dangki{
+    display: none;
+    position: absolute;
+    width: 400px;
+    margin: auto;
+    background: #F1ECBD;
+    padding: 10px;
+}
+.form-dangki-submit{
+    width: 50%;
+    padding: auto;
+    margin: auto;
+}

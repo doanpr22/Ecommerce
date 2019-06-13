@@ -29,6 +29,10 @@ public class ProductDestailsEntity {
      private int khecamsim;
      private String hedieuhanh;
      private String baohanh;
+     private String dophangiai;
+     private String CPU;
+     private String kichthuoc;
+     private String trongluong;
      @OneToOne(mappedBy = "productDestails")
      @PrimaryKeyJoinColumn
      private ProductEntity product;
@@ -116,6 +120,38 @@ public class ProductDestailsEntity {
         this.baohanh = baohanh;
     }
 
+    public String getDophangiai() {
+        return dophangiai;
+    }
+
+    public void setDophangiai(String dophangiai) {
+        this.dophangiai = dophangiai;
+    }
+
+    public String getCPU() {
+        return CPU;
+    }
+
+    public void setCPU(String CPU) {
+        this.CPU = CPU;
+    }
+
+    public String getKichthuoc() {
+        return kichthuoc;
+    }
+
+    public void setKichthuoc(String kichthuoc) {
+        this.kichthuoc = kichthuoc;
+    }
+
+    public String getTrongluong() {
+        return trongluong;
+    }
+
+    public void setTrongluong(String trongluong) {
+        this.trongluong = trongluong;
+    }
+
     public ProductEntity getProduct() {
         return product;
     }
@@ -123,6 +159,7 @@ public class ProductDestailsEntity {
     public void setProduct(ProductEntity product) {
         this.product = product;
     }
-     
+
+   
      
 }

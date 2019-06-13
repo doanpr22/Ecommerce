@@ -7,7 +7,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="include/header.jsp"/>
+
 <jsp:include page="include/main-left-top.jsp"/>
 
 <jsp:include page="include/section.jsp"/>
+
 <jsp:include page="include/footer.jsp"/>

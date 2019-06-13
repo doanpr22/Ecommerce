@@ -5,6 +5,7 @@
  */
 package entity;
 
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,7 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -28,13 +30,22 @@ public class ShippingEntity {
     private int id;
     private double shipPrice;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "profileId")
     private ProfileEntity profile;
+    @OneToMany(mappedBy = "shipping")
+    private List<OrdersEntity> orderList;
 
     public ShippingEntity() {
     }
 
+    public List<OrdersEntity> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<OrdersEntity> orderList) {
+        this.orderList = orderList;
+    }    
     public int getId() {
         return id;
     }
@@ -59,4 +70,5 @@ public class ShippingEntity {
         this.profile = profile;
     }
 
+    
 }

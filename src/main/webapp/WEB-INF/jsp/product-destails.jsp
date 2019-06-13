@@ -15,29 +15,26 @@
 
     <div class="row container-fluid">
         <div class="col-md-5">
-            <div id="baner-product" class="carousel slide" data-ride="carousel">
-                <ul class="carousel-indicators">
+            <div  class="carousel slide" data-ride="carousel">
+                <ul class="carousel-indicators" id="baner-product">
                     <li data-target="#baner-product" data-slide-to="0" class="active"></li>
                     <li data-target="#baner-product" data-slide-to="1"></li>
                     <li data-target="#baner-product" data-slide-to="2"></li>
                     <li data-target="#baner-product" data-slide-to="3"></li>
 
+
                 </ul>
                 <div class="carousel-inner" id="product-image">
-                    <c:forEach var="image"  items="${product.listUrlImage}">
+                    <div class="carousel-item active">
+                            <img src="<%=request.getContextPath()%>${product.urlImage}" alt="iPhone" width="450" height="500">
+                    </div>
+                    <c:forEach var="image"  items="${product.listproductImage}">
                         <div class="carousel-item">
                             <img src="<%=request.getContextPath()%>${image.url}" alt="iPhone" width="450" height="500">
                         </div>
                     </c:forEach>
 
                 </div>
-                <script>
-                    $(document).ready(function () {
-                        $('section').addClass('.bg-primarys')
-                        $("#product-image + carousel-item").addClass('active');
-                    });
-                </script>
-
                 <a class="carousel-control-prev" href="#baner-product" data-slide="prev">
                     <span class="carousel-control-prev-icon"></span>
                 </a>
@@ -52,14 +49,14 @@
                     <div class="title text-center"><a href=""><span><i>Apple iPhone 8 64GB Chính hãng															</i></span></a></div>
                     <div class="price text-center">
                         <p class="new-price btn btn-primary">14.500.000&nbsp;₫</p>
-                        <del class="old-price new-price btn btn-primary">15.500.000&nbsp;₫</del>
+                        <del class="old-price new-price btn btn-primary">${product.unitPriceString}</del>
                     </div><br>
 
                     <div>
                         <p>${product.description}</p>
                     </div>
                     <div class="align-bottom">
-                        <a class="navbar-brand text-center btn-light btn" href="<%=request.getContextPath()%>/addcart?id=${product.id}">       
+                        <a class="navbar-brand text-center btn-light btn" href="<%=request.getContextPath()%>/cart/add?id=${product.id}">       
                             <i class='fas fa-cart-arrow-down' style='font-size:20px;color:#155BF2'></i>
                             <span style='font-size:15px';>Thêm vào Giỏ hàng</span>
                         </a>

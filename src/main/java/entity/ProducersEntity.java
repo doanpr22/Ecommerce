@@ -30,8 +30,8 @@ public class ProducersEntity {
     private String producerEmail;
     private String producerPhone;
     
-    @OneToMany(mappedBy = "producer",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<ProductEntity> productlist;
+    @OneToMany(mappedBy = "producer")
+    private List<ProductEntity> productList;
 
     public ProducersEntity() {
     }
@@ -76,12 +76,12 @@ public class ProducersEntity {
         this.producerPhone = producerPhone;
     }
 
-    public List<ProductEntity> getProductlist() {
-        return productlist;
+    public List<ProductEntity> getProductList() {
+        return productList;
     }
 
-    public void setProductlist(List<ProductEntity> productlist) {
-        this.productlist = productlist;
+    public void setProductList(List<ProductEntity> productList) {
+        this.productList = productList;
     }
 
     

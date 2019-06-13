@@ -32,6 +32,16 @@ public class ProductImageEntity {
     public ProductImageEntity() {
     }
 
+    public ProductImageEntity(String url) {
+        this.url = url;
+    }
+
+    public ProductImageEntity(String url, ProductEntity product) {
+        this.url = url;
+        this.product = product;
+    }
+
+    
     public int getId() {
         return id;
     }

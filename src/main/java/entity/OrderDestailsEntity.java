@@ -13,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -26,27 +25,30 @@ public class OrderDestailsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
     private int quantity;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "productId")
     private ProductEntity product;
     
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "orderId")
-    
-    
     private OrdersEntity order;
 
-    public OrderDestailsEntity() {
+     public OrderDestailsEntity(){
+        quantity=1;
         product=new ProductEntity();
-        
+    }
+    public OrderDestailsEntity(int quantity, ProductEntity product, OrdersEntity order) {
+        this.quantity = quantity;
+        this.product = product;
+        this.order = order;
     }
 
-    public OrderDestailsEntity(int id, ProductEntity product) {
-        this.id = id;
-        this.product = product;
+    OrderDestailsEntity(int quantity, ProductEntity product) {
+        this.quantity=quantity;
+        this.product=product;
     }
+
 
     public int getId() {
         return id;
@@ -54,6 +56,14 @@ public class OrderDestailsEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public ProductEntity getProduct() {
@@ -72,20 +82,13 @@ public class OrderDestailsEntity {
         this.order = order;
     }
 
-    public int getQuantity() {
-        return quantity;
+    boolean checkProduct(ProductEntity product) {
+        return product.getId()==this.product.getId();
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    void addQuantity() {
+        quantity++;
     }
     
-    public boolean checkProduct(ProductEntity product){
-       return  (product.getId()==this.product.getId());
-       
-   }
-   public void addQuantity(){
-       quantity++;
-   }
     
 }

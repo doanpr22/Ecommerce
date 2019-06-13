@@ -35,7 +35,7 @@ public class PromotionEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDay;
     
-    @OneToMany(mappedBy = "promotion",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "promotion")
     private List<PromotionDestailsEntity> promotionDestailsList;
 
     public PromotionEntity() {

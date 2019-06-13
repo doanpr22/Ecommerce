@@ -8,16 +8,13 @@ package entity;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -37,28 +34,40 @@ public class OrdersEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate shipDate;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer")
-    private CustomerEntity customer;
-    
-    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private UsersEntity user;
+
+    @OneToMany(mappedBy = "order")
     private List<OrderDestailsEntity> orderDestailsList;
-    
-    @OneToOne(mappedBy = "order",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private BillEntity bill;
+
+    @ManyToOne
+    @JoinColumn(name = "shippingId")
+    private ShippingEntity shipping;
+
+    @ManyToOne
+    @JoinColumn(name = "paymentTypeId")
+    private PaymentTypeEntity paymentType;
 
     public OrdersEntity() {
         orderDate=LocalDate.now();
         orderDestailsList=new ArrayList<OrderDestailsEntity>();
     }
 
-    public OrdersEntity(int id, LocalDate orderDate, LocalDate shipDate, CustomerEntity customer, List<OrderDestailsEntity> orderDestailsList, BillEntity bill) {
-        this.id = id;
-        this.orderDate = orderDate;
-        this.shipDate = shipDate;
-        this.customer = customer;
-        this.orderDestailsList = orderDestailsList;
-        this.bill = bill;
+    public ShippingEntity getShipping() {
+        return shipping;
+    }
+
+    public PaymentTypeEntity getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(PaymentTypeEntity paymentType) {
+        this.paymentType = paymentType;
+    }
+
+    public void setShipping(ShippingEntity shipping) {
+        this.shipping = shipping;
     }
 
     public int getId() {
@@ -85,13 +94,14 @@ public class OrdersEntity {
         this.shipDate = shipDate;
     }
 
-    public CustomerEntity getCustomer() {
-        return customer;
+    public UsersEntity getUser() {
+        return user;
     }
 
-    public void setCustomer(CustomerEntity customer) {
-        this.customer = customer;
+    public void setUser(UsersEntity user) {
+        this.user = user;
     }
+
 
     public List<OrderDestailsEntity> getOrderDestailsList() {
         return orderDestailsList;
@@ -99,14 +109,6 @@ public class OrdersEntity {
 
     public void setOrderDestailsList(List<OrderDestailsEntity> orderDestailsList) {
         this.orderDestailsList = orderDestailsList;
-    }
-
-    public BillEntity getBill() {
-        return bill;
-    }
-
-    public void setBill(BillEntity bill) {
-        this.bill = bill;
     }
 
     public OrdersEntity addProduct(ProductEntity product) {
@@ -118,7 +120,7 @@ public class OrdersEntity {
             }
         }
         if (i) {
-            orderDestailsList.add(new OrderDestailsEntity(1, product));
+            orderDestailsList.add(new OrderDestailsEntity(1,product));
         }
         return this;
     }

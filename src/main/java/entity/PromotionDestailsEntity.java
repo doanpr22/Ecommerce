@@ -13,26 +13,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.ManyToAny;
 
 /**
  *
  * @author USER
  */
 @Entity
-@Table(name = "promotiondestails")
+@Table(name = "PromotionDestails")
 public class PromotionDestailsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "productid")
+    @ManyToOne
+    @JoinColumn(name = "productId")
     private ProductEntity product;
     
-    
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "promotionId")
     private PromotionEntity promotion;
 
@@ -47,20 +47,22 @@ public class PromotionDestailsEntity {
         this.id = id;
     }
 
-    public PromotionEntity getPromotion() {
-        return promotion;
-    }
-
-    public void setPromotion(PromotionEntity promotion) {
-        this.promotion = promotion;
-    }
-
     public ProductEntity getProduct() {
         return product;
     }
 
     public void setProduct(ProductEntity product) {
         this.product = product;
+    }
+
+    
+
+    public PromotionEntity getPromotion() {
+        return promotion;
+    }
+
+    public void setPromotion(PromotionEntity promotion) {
+        this.promotion = promotion;
     }
 
     

@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <main class="container-fluid"  >
     <div class="banner">
         <div id="myCarousel" class="carousel carousel-fade slide border " data-ride="carousel">
@@ -36,7 +37,7 @@
                 <dt>Sản phẩm hot</dt>
             </dl>
             <dd>
-                <ol class="sp-ol">
+                <ol class="sp-ol"><%-- Nhận từ data lên--%>
                     <li ><a href="">iPhone XS</a></li>
                     <li><a href="">iPhone X</a></li>
                     <li><a href="">iPhone 8 | 8 Plus</a></li>
@@ -76,11 +77,11 @@
             </dl>
             <dd>
                 <ol class="sp-ol">
-                    <li ><a href="">Tất cả</a></li>
-                    <li><a href="">Android</a></li>
-                    <li><a href="">iOS</a></li>
-                    <li><a href="">Windown</a></li>
-                    <li><a href="">Khác</a></li>
+                    <li ><a href="#">Tất cả</a></li>
+                    <li><a href="#">Android</a></li>
+                    <li><a href="#">iOS</a></li>
+                    <li><a href="#">Windown</a></li>
+                    <li><a href="#">Khác</a></li>
                 </ol>
             </dd>
         </div>
@@ -89,65 +90,12 @@
             <nav class="navbar navbar-expand-md justify-content-center nav-main-top">
                 <h2 class="navbar-brand float-left">Điện thoại</h2>
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-center btn-primary btn "> iPhone</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-center btn-primary btn"> Samsung</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-center btn-primary btn"> Nokia</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-center btn-primary btn"> Huawei</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-center btn-primary btn"> Xiaomi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-center btn-primary btn"> OPPO</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-center btn-primary btn"> ASUS</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-center btn-primary btn"> Vsmax</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-center btn-primary btn"> Vivo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-center btn-primary btn"> Masster</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-center btn-primary btn">Điện thoại thoại phổ thông</a>
-                    </li>
+                    <c:forEach var="category" items="${listCategory}">
+                        <li class="nav-item">
+                            <a href="search?searchValue=${category.categoryName}" class="nav-link text-center btn-primary btn ">${category.categoryName}</a>
+                        </li>
+                    </c:forEach>
                 </ul>
-            </nav>
-            <div class="tam-gia">
-                <h3 class="navbar-brand float-left">Chọn mức giá</h3>
-                <div class="float-left">
-                    <nav class="navbar navbar-expand-md">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link text-center"> Dưới 5 triệu</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link text-center"> Từ 5 đến 10 triệu</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link text-center"> Từ 10 đến 15 triệu</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link text-center"> Từ 15 đến 20 triệu</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link text-center"> Trên 20 triệu</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
                 <div class="float-right">
 
                     <select>
@@ -159,4 +107,5 @@
                         </option>
                     </select>
                 </div>
-            </div>
+            </nav>
+

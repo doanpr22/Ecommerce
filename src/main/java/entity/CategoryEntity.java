@@ -21,16 +21,28 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Category")
 public class CategoryEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String categoryName;
     private String description;
-    
-    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "category")
     private List<ProductEntity> productlist;
 
     public CategoryEntity() {
+    }
+
+    public CategoryEntity(int id, String categoryName, String description) {
+        this.id = id;
+        this.categoryName = categoryName;
+        this.description = description;
+    }
+
+    public CategoryEntity(String categoryName, String description) {
+        this.categoryName = categoryName;
+        this.description = description;
     }
 
     public CategoryEntity(int id, String categoryName, String description, List<ProductEntity> productlist) {
@@ -71,6 +83,5 @@ public class CategoryEntity {
     public void setProductlist(List<ProductEntity> productlist) {
         this.productlist = productlist;
     }
-    
-    
+
 }
