@@ -39,4 +39,14 @@ public class Cart {
         order = order.addProduct(product);
         return this;
     }
+    public Cart setQuantityOrderDestails(int productId,int quantity){
+       order=order.setOrderDestailsQuantity(productId, quantity);
+       return this;
+    }
+    public OrderDestailsEntity getOrderDestails(int idDestails){
+        for(OrderDestailsEntity destailsEntity : order.getOrderDestailsList()){
+            if(destailsEntity.getId()==idDestails) return destailsEntity;
+        }
+        return  null;
+    }
 }

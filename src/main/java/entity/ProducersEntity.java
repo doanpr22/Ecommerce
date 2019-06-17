@@ -36,6 +36,14 @@ public class ProducersEntity {
     public ProducersEntity() {
     }
 
+    public ProducersEntity(int id) {
+        this.id = id;
+    }
+ 
+    public ProducersEntity(String producerName) {
+        this.producerName = producerName;
+    }
+
     public int getId() {
         return id;
     }
@@ -84,6 +92,13 @@ public class ProducersEntity {
         this.productList = productList;
     }
 
-    
+    @Override
+    public String toString() {
+        return "ProducersEntity{" + "id=" + id + ", producerName=" + producerName + ", producerAddress=" + producerAddress + ", producerEmail=" + producerEmail + ", producerPhone=" + producerPhone + '}';
+    }
+
+    public ProducersEntity setProducer(){
+        return new ProducersEntity(id);
+    }
     
 }

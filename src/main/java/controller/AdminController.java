@@ -45,6 +45,7 @@ public class AdminController {
     UserService userService;
 
     @RequestMapping(method = GET)
+    @ResponseBody
     public String index(Model model, HttpServletRequest request) {
         return "redirect:/";
     }

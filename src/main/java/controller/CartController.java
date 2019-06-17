@@ -6,10 +6,12 @@
 package controller;
 
 import entity.Cart;
+import entity.CategoryEntity;
 import entity.OrderDestailsEntity;
 import entity.OrdersEntity;
 import entity.ProductEntity;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import service.CategoryService;
 import service.ProductService;
 
 /**
@@ -31,15 +34,30 @@ public class CartController {
 
     @Autowired
     ProductService productService;
-
+    @Autowired
+    CategoryService categoryService;
     @Autowired
     Cart cart;
 
     @RequestMapping(method = GET)
     public String displayCart(Model model) {
+        init(model);
         OrdersEntity order = cart.getOrder();
         model.addAttribute("order", order);
+        // order.getOrderDestailsList().size();
         return "/cart";
+    }
+
+    public void init(Model model) {
+
+        List<ProductEntity> productlistHot = (List<ProductEntity>) productService.getAllProductByDesc(6);
+        model.addAttribute("productlistHot", productlistHot);
+
+        List<ProductEntity> productlist = (List<ProductEntity>) productService.getProductlist();
+        model.addAttribute("productlist", productlist);
+
+        List<CategoryEntity> listCategory = categoryService.getListCategory();
+        model.addAttribute("listCategory", listCategory);
     }
 
     @RequestMapping(value = "/add", method = GET)
@@ -50,18 +68,44 @@ public class CartController {
         cart = cart.addItem(product);
         OrdersEntity order = cart.getOrder();
         model.addAttribute("order", order);
-         return "redirect:/cart";
+        return "redirect:/cart";
+    }
+
+    @RequestMapping(value = "/reset", method = GET)
+    public String resetCart(@RequestParam(name = "quantity") int quantity, @RequestParam(name = "id") int idProduct, Model model) {
+
+        cart = cart.setQuantityOrderDestails(idProduct, quantity);
+        OrdersEntity order = cart.getOrder();
+        model.addAttribute("order", order);
+        return "redirect:/cart";
     }
 
     @RequestMapping(value = "/delete", method = GET)
     public String deleteCart(@RequestParam(name = "id") int orderDestailsId, Model model) {
         List<OrderDestailsEntity> orderDestailsEntitys = cart.getOrder().getOrderDestailsList();
-        orderDestailsEntitys.remove(orderDestailsId);
-        OrdersEntity order = cart.getOrder();
-        order.setOrderDestailsList(orderDestailsEntitys);
 
-        cart.setOrder(order);
-       return "redirect:/cart";
+        for (OrderDestailsEntity destailsEntity : orderDestailsEntitys) {
+
+            if (destailsEntity.getId() == orderDestailsId) {
+
+                orderDestailsEntitys.remove(destailsEntity);
+            }
+        }
+        cart.getOrder().setOrderDestailsList(orderDestailsEntitys);
+        return "redirect:/cart";
+    }
+
+    @RequestMapping(value = "paymentDestails")
+    @ResponseBody
+    public String paymentDestails(@RequestParam(name = "idOrderDestails") int idDestails, Model model) {
+        return Integer.toString(idDestails);
+    }
+
+    @RequestMapping(value = "paymentAll")
+    public String payment(Model model,HttpServletRequest request) {
+        
+        request.getSession().setAttribute("orderpayment", cart.getOrder());
+        return "redirect:/payment";
     }
 
 }

@@ -6,7 +6,6 @@
 package entity;
 
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,6 +31,14 @@ public class CategoryEntity {
     private List<ProductEntity> productlist;
 
     public CategoryEntity() {
+    }
+
+    public CategoryEntity(int id) {
+        this.id = id;
+    }
+
+    public CategoryEntity(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public CategoryEntity(int id, String categoryName, String description) {
@@ -84,4 +91,12 @@ public class CategoryEntity {
         this.productlist = productlist;
     }
 
+    @Override
+    public String toString() {
+        return "CategoryEntity{" + "id=" + id + ", categoryName=" + categoryName + ", description=" + description + '}';
+    }
+
+    public CategoryEntity setCategory(){
+        return new CategoryEntity(id);
+    }
 }

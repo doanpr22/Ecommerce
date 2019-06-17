@@ -18,7 +18,5 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends CrudRepository<UsersEntity, Integer>{
     
     public UsersEntity findByUsername(String username);
-    @Query(value = "select *from users where username='?'",nativeQuery = true)
-    public UsersEntity getUserByUsername(String username);
 
 }

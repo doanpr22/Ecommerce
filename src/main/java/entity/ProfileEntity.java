@@ -124,6 +124,15 @@ public class ProfileEntity {
     public void setShippingList(List<ShippingEntity> shippingList) {
         this.shippingList = shippingList;
     }
+    public String getGenderString(){
+        if(gender) return "Nam";
+        return "Nữ";
+    }
+
+    @Override
+    public String toString() {
+        return "ProfileEntity{" + "id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", phone=" + phone + ", address=" + address + ", gender=" + gender + ", birthDate=" + birthDate + '}';
+    }
 
    
   

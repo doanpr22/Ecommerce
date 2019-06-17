@@ -23,7 +23,6 @@ import service.CategoryService;
 import service.ProductDestailsService;
 import service.ProductService;
 import service.UserService;
-import utility.GetContextUrl;
 
 /**
  *
@@ -47,37 +46,76 @@ public class EcommerceController {
     @RequestMapping(method = GET)
     public String index(Model model, HttpServletRequest request) {
         init(model);
-        String role = "";
-        try {
-            String username = (String) request.getSession().getAttribute("username");
-            role = (String) request.getSession().getAttribute("role");
-        } catch (Exception e) {
+        String role = (String) request.getSession().getAttribute("role");
+
+        if (role == null) {
+            request.getSession().setAttribute("role","null");
         }
-        return "index";
+       return "index";
     }
 
     public void init(Model model) {
 
-        List<ProductEntity> productlist = (List<ProductEntity>) productService.getProductlist();
+        List<ProductEntity> productlist = (List<ProductEntity>) productService.getAllProductByDesc(18);
         model.addAttribute("productlist", productlist);
+
+        List<ProductEntity> productlistHot = (List<ProductEntity>) productService.getAllProductByDesc(6);
+        model.addAttribute("productlistHot", productlistHot);
+
+        productlist.listIterator(5);
         List<CategoryEntity> listCategory = categoryService.getListCategory();
         model.addAttribute("listCategory", listCategory);
     }
 
     @RequestMapping(value = "/product-destails")
     public String productDestails(@RequestParam(name = "productId") int id, Model model) {
+        init(model);
         ProductEntity product = productService.getProduct(id);
         model.addAttribute("product", product);
+        List<ProductEntity> listProductSearchCategory = productService.getSearchProduct(product.getCategory().getCategoryName());
+        model.addAttribute("productlistSameCategory", listProductSearchCategory);
+
+        List<ProductEntity> listProductSearchPrice = productService.getSearchProductUnitPrice(product, 12);
+
+        model.addAttribute("productlistSamePrice", listProductSearchPrice);
+
         return "/product-destails";
     }
 
     @RequestMapping(value = "/search")
     public String search(@RequestParam(name = "searchValue") String searchValue, Model model, HttpServletRequest request) {
         init(model);
-        List<ProductEntity> listProductSearch = productService.getSearchProduct(searchValue);
 
+        request.getSession().setAttribute("searchValue", searchValue);
+
+        List<ProductEntity> listProductSearch = productService.getSearchProduct(searchValue);
         model.addAttribute("productlist", listProductSearch);
         return "/index";
     }
+
+    @RequestMapping(value = "/searchManhinh")
+    public String searchSuper(@RequestParam(name = "value1") String value1, Model model, HttpServletRequest request) {
+        init(model);
+
+        String searchValue = (String) request.getSession().getAttribute("searchValue");
+        if (searchValue == null) {
+            return search(value1, model, request);
+        } else {
+            List<ProductEntity> listProductSearch = productService.getSearchProduct(searchValue);
+
+            model.addAttribute("productlist", listProductSearch);
+        }
+
+        return "/index";
+    }
+
+    @RequestMapping(value = "registration")
+    public String registration(Model model) {
+        init(model);
+        UsersEntity customer = new UsersEntity();
+        model.addAttribute("customer", customer);
+        return "/registration";
+    }
+
 
 }

@@ -21,19 +21,22 @@
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/index-css.css">
         <link href="<%=request.getContextPath()%>/css/form-login.css" rel="stylesheet" type="text/css"/>
         <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
-
+        <script src="<%=request.getContextPath()%>/js/formatMoney.js" type="text/javascript"></script>
         <script src="<%=request.getContextPath()%>/js/js.js" type="text/javascript"></script>
 
     </head>
     <body>
         <input type="hidden" id="role" value="${role}"/>
+        <input type="hidden" id="action" value="${action}"/>
+        <input type="hidden" id="error" value="${error}"/>
+
         <header class="container-fluid row">
             <nav class="navbar navbar-expand-md col-md-6">
                 <a class="navbar-brand logo" href="<%=request.getContextPath()%>">
                     <img src="<%=request.getContextPath()%>/image/icon/apple.icon.PNG" width="200px" height="50px">
                 </a>
                 <ul class="navbar-nav timkiem justify-content-end">
-                    <form class="form-inline" action="search">
+                    <form class="form-inline" action="<%=request.getContextPath()%>/search">
                         <input class="form-control mr-md-2 text-center" name="searchValue" type="text" placeholder="Tìm kiếm...">
                         <button class="btn btn-success" type="submit">Tìm kiếm</button>
                     </form>
@@ -92,16 +95,16 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown" id="taikhoan-customer">
-                        <a href="newproduct" class="nav-link text-center dropdown-tonggle" 
+                        <a class="nav-link text-center dropdown-tonggle" 
                            data-toggle="dropdown"><i class="fas fa-users"  style='font-size:20px;color: #7112DC'></i><br>
-                            <span style='font-size:15px' class="align-middle text-center" id="login">Tài khoản</span><br></a>
-
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Tài khoản</a>
-                            <a class="dropdown-item" href="#">Chỉnh sửa thông tin</a>
+                            <span style='font-size:15px' class="text-center">${username}</span><br></a>
+                        <div class="dropdown-menu" id="taikhoan-customer-super">
+                            <a class="dropdown-item" id="profile-customer"href="<%=request.getContextPath()%>/customer/profile">${user.profile.lastname} ${user.profile.firstname}</a>
+                            <a class="dropdown-item" href="#">Chỉnh sửa tài khoản</a>
+                            <a class="dropdown-item" href="#">Danh sách order</a>
                             <a class="dropdown-item" href="#">Đổi mật khẩu</a>
                             <a class="dropdown-item" href="<%=request.getContextPath()%>/logout">Đăng xuất</a>
-                        </div>
+                    </div>
                     </li>
 
                 </ul>
@@ -126,9 +129,10 @@
                            id="navbardrop" data-toggle="dropdown">Quản lý<br/> Sản phẩm</a>
 
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="<%=request.getContextPath()%>/users/newproduct">Thêm sản phẩm</a>
-                            <a class="dropdown-item" href="#">Chỉnh sửa Sp</a>
-                            <a class="dropdown-item" href="#">Xóa Sp</a>
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/users/product/all">Tất cả sản phẩm</a>
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/users/product/new">Thêm sản phẩm</a>
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/users/product/edit">Chỉnh sửa Sp</a>
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/users/product/delete">Xóa Sp</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -161,7 +165,7 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="newproduct" class="nav-link text-center dropdown-tonggle" 
+                        <a class="nav-link text-center dropdown-tonggle" 
                            data-toggle="dropdown"><i class="fas fa-users"  style='font-size:20px;color: #7112DC'></i><br>
                             <span style='font-size:15px' class="align-middle text-center" id="login">Tài khoản</span><br></a>
 

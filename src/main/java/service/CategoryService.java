@@ -29,4 +29,7 @@ public class CategoryService {
     public CategoryEntity getCategory(int id){
         return categoryRepository.findOne(id);
     }
+    public CategoryEntity getCategoryName(String name){
+        return categoryRepository.findByCategoryName(name);
+    }
 }

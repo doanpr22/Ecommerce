@@ -22,4 +22,7 @@ public class ProductDestailsService {
     public ProductDestailsEntity save(ProductDestailsEntity productDestails){
         return productDestailsRepository.save(productDestails);
     }
+    public void delete(int id){
+        productDestailsRepository.delete(id);
+    }
 }

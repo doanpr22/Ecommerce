@@ -49,10 +49,9 @@ public class ProductEntity {
     @OneToMany(mappedBy = "product")
     private List<OrderDestailsEntity> orderDestails;
 
-    @OneToOne
-    @PrimaryKeyJoinColumn
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "product")
     private ProductDestailsEntity productDestails;
-    @OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "product",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<ProductImageEntity> listproductImage;
 
     public List<ProductImageEntity> getListproductImage() {
@@ -150,4 +149,13 @@ public class ProductEntity {
         return FormatMoney.getMoney(unitPrice);
     }
 
+    @Override
+    public String toString() {
+        return "ProductEntity{" + "id=" + id + ", productName=" + productName + ", unitPrice=" + unitPrice + ", urlImage=" + urlImage + ", description=" + description + ", category=" + category + ", producer=" + producer + '}';
+    }
+
+  
+ 
+
+    
 }

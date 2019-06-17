@@ -34,16 +34,13 @@
     <div class="main-container row">
         <div class="col-left col-sm-2 bg-light">
             <dl>
-                <dt>Sản phẩm hot</dt>
+                <dt>Sản phẩm HOT</dt>
             </dl>
             <dd>
-                <ol class="sp-ol"><%-- Nhận từ data lên--%>
-                    <li ><a href="">iPhone XS</a></li>
-                    <li><a href="">iPhone X</a></li>
-                    <li><a href="">iPhone 8 | 8 Plus</a></li>
-                    <li><a href="">iPhone 7 | 7 Plus</a></li>
-                    <li><a href="">Galaxy A</a></li>
-                    <li><a href="">Galaxy S</a></li>
+                <ol class="sp-ol">
+                    <c:forEach var="pro" items="${productlistHot}">
+                        <li ><a href="<%=request.getContextPath()%>/product-destails?productId=${pro.id}">${pro.productName}</a></li>
+                        </c:forEach>
                 </ol>
             </dd>
 
@@ -92,19 +89,20 @@
                 <ul class="navbar-nav">
                     <c:forEach var="category" items="${listCategory}">
                         <li class="nav-item">
-                            <a href="search?searchValue=${category.categoryName}" class="nav-link text-center btn-primary btn ">${category.categoryName}</a>
+                            <a href="<%=request.getContextPath()%>/search?searchValue=${category.categoryName}" class="nav-link text-center btn-primary btn ">${category.categoryName}</a>
                         </li>
                     </c:forEach>
+                    <li class="nav-item">
+                        <a href="<%=request.getContextPath()%>" class="nav-link text-center btn-primary btn ">Tất cả</a>
+                    </li>
                 </ul>
                 <div class="float-right">
 
-                    <select>
-                        <option>
-                        <span><i>Từ cao đến thấp</i></span>
-                        </option>
-                        <option>
-                        <span><i>Từ thấp đến cao</i></span>
-                        </option>
+                    <select class="browser-default custom-select" style="width: 200px; border-radius: 10%;">
+                        <option selected value="0">Giá từ cao tới thấp</option>
+                        <option value="1">Giá từ thấp tới cao</option>
+                        <option value="2">Các sản phẩm hot</option>
+                        <option value="3">Sản phẩm được mua nhiều nhất</option>
                     </select>
                 </div>
             </nav>

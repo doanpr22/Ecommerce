@@ -38,7 +38,7 @@ and open the template in the editor.
 header{
     margin: 0 !important;
     padding-right: 10px;
-    background: #F97188;
+    background: #D689BC;
 }
 header nav{
     padding: 0 !important;
@@ -236,9 +236,25 @@ section{
 #taikhoan-customer{
     display: none;
 }
-#nav-quan-ly{
+#nav-quan-ly,#nullProduct{
     display: none;
 }
-
-
-
+.form-cart{
+   
+    margin-top: 20px;
+}
+.position-botton{
+    position: absolute;
+    bottom: 20px;
+}
+.thong-so-kt table tr{
+    padding-bottom: 5px;
+}
+#profile{
+    display: none;
+}
+.payment-input{
+    width: 100% !important;
+    padding: 10px;
+    border-radius: 50px 20px;
+}

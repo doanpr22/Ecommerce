@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import utility.FormatMoney;
 
 /**
  *
@@ -29,10 +30,16 @@ public class OrderDestailsEntity {
     @ManyToOne
     @JoinColumn(name = "productId")
     private ProductEntity product;
-    
+    private double sumPrice;
     @ManyToOne
     @JoinColumn(name = "orderId")
     private OrdersEntity order;
+
+    
+    public String getSumPrice() {
+        sumPrice= quantity*product.getUnitPrice();
+       return FormatMoney.getMoney(sumPrice);
+    }
 
      public OrderDestailsEntity(){
         quantity=1;
@@ -44,7 +51,13 @@ public class OrderDestailsEntity {
         this.order = order;
     }
 
-    OrderDestailsEntity(int quantity, ProductEntity product) {
+    public OrderDestailsEntity(int id, int quantity, ProductEntity product) {
+        this.id = id;
+        this.quantity = quantity;
+        this.product = product;
+    }
+
+   public OrderDestailsEntity(int quantity, ProductEntity product) {
         this.quantity=quantity;
         this.product=product;
     }

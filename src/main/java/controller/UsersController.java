@@ -10,12 +10,15 @@ import entity.ProducersEntity;
 import entity.ProductEntity;
 import entity.UsersEntity;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -54,64 +57,27 @@ public class UsersController {
     UserService userService;
 
     @RequestMapping(method = GET)
-    public String index(Model model, HttpServletRequest request) {
-        return "redirect:/";
+    public String index(Model model, HttpServletRequest request, HttpServletResponse response) {
+
+        String role = (String) request.getSession().getAttribute("role");
+            if (role != null && role.equals("ROLE_USER") ||role.equals("ROLE_ADMIN")) {
+                return "redirect:/";
+            } else {
+                model.addAttribute("error", "403");
+                return "error/403";
+            }
     }
 
     public void init(Model model) {
+
+        List<ProductEntity> productlistHot = (List<ProductEntity>) productService.getAllProductByDesc(5);
+        model.addAttribute("productlistHot", productlistHot);
+
+        List<ProductEntity> productlist = (List<ProductEntity>) productService.getProductlist();
+        model.addAttribute("productlist", productlist);
+
         List<CategoryEntity> listCategory = categoryService.getListCategory();
         model.addAttribute("listCategory", listCategory);
-        List<ProducersEntity> listProducer = producerService.getListProducer();
-        model.addAttribute("listProducer", listProducer);
+
     }
-
-    @RequestMapping(value = "/newproduct")
-    public String addProduct(Model model) {
-        init(model);
-        ProductEntity product = new ProductEntity();
-        model.addAttribute("product", product);
-         model.addAttribute("action", "new");
-        return "/user/newproduct";
-    }
-    @RequestMapping(value = "/edit")
-    public String edit(Model model,@RequestParam(name = "id") int id) {
-        init(model);
-        ProductEntity product = productService.getProduct(id);
-        model.addAttribute("product", product);
-        model.addAttribute("action", "edit");
-        return "/user/newproduct";
-    }
-
-    /**
-     *
-     * @param model
-     * @param product
-     * @param files
-     * @return
-     */
-    @RequestMapping(value = "/save-product")
-    public String saveProduct(Model model, ProductEntity product, @RequestParam(name = "files") MultipartFile[] files) {
-        List<String> listUrlImage = new ArrayList<String>();
-        //save data
-        product = productService.saveProduct(product);
-        //Create url
-        String url = "/image" + File.separator + product.getProducer().getProducerName()
-                + File.separator + product.getCategory().getCategoryName()
-                + File.separator + product.getProductName()
-                + File.separator + product.getProductDestails().getBonhotrong()
-                + File.separator + product.getProductDestails().getRam()
-                + File.separator + product.getProductDestails().getMau();
-        //save image. return urlList
-        listUrlImage = UpdateFile.uploadFileList(files, url);
-
-        product.setUrlImage(listUrlImage.get(0));
-        product = productService.saveProduct(product);
-
-        listUrlImage.remove(0);
-        productImageService.saveList(listUrlImage, product);
-
-        model.addAttribute("product", product);
-       return "redirect:/";
-    }
-
 }

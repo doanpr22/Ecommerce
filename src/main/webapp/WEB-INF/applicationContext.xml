@@ -26,9 +26,9 @@
         <security:csrf disabled="true"/>
         
         <security:intercept-url pattern="/login" access="isAnonymous()"/>
-        <security:intercept-url pattern="/customer/*" access="hasAnyRole('ROLE_CUSTOMER,ROLE_ADMIN')"/>
-        <security:intercept-url pattern="/users/*" access="hasAnyRole('ROLE_USER,ROLE_ADMIN')"/>
-        <security:intercept-url pattern="/admin/*" access="hasAnyRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/WEP-INF/jsp/customer/*" access="hasAnyRole('ROLE_CUSTOMER,ROLE_ADMIN')"/>
+        <security:intercept-url pattern="users/*" access="hasAnyRole('ROLE_USER,ROLE_ADMIN')"/>
+        <security:intercept-url pattern="admin/*" access="hasAnyRole('ROLE_ADMIN')"/>
        
         <security:form-login login-page="/?login_error=1" 
                              login-processing-url="/j_spring_security_check" 
@@ -48,5 +48,6 @@
         <property name="username" value="root"/>
         <property name="password" value="ngay500k"/>
     </bean>
-   
+   <bean id="formMatmoney" class="utility.FormatMoney" />
+    
 </beans>

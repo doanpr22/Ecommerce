@@ -26,6 +26,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name = "users")
 public class UsersEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -33,15 +34,35 @@ public class UsersEntity {
     private String password;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate createday;
-    
-    @ManyToOne
+    private int enabled;
+
+    public int getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
+    }
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profileId")
     private ProfileEntity profile;
-    
+
     @OneToMany(mappedBy = "user")
     private List<OrdersEntity> orderList;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User_role role;
+
+    
     public UsersEntity() {
+    }
+
+    public User_role getRole() {
+        return role;
+    }
+
+    public void setRole(User_role role) {
+        this.role = role;
     }
 
     public int getId() {
@@ -96,15 +117,13 @@ public class UsersEntity {
         this.orderList = orderList;
     }
 
-    @Override
-    public String toString() {
-        if(this==null)return "loi";
-        return "UsersEntity{" + "id=" + id + ", username=" + username + ", password=" + password + ", createday=" + createday + ", profile=" + profile + ", orderList=" + orderList + '}';
+    public String getPassword() {
+        return password;
     }
 
-   
+    @Override
+    public String toString() {
+        return "UsersEntity{" + "id=" + id + ", username=" + username + ", password=" + password + ", createday=" + createday + ", profile=" + profile + '}';
+    }
 
-    
-    
-    
 }

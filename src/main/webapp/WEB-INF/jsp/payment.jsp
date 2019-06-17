@@ -1,0 +1,115 @@
+<%-- 
+    Document   : gioi-hang
+    Created on : May 31, 2019, 10:49:47 AM
+    Author     : USER
+--%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="include/header.jsp"/>
+<jsp:include page="include/main-left-top.jsp"/>
+
+<main  id="notNullProduct">
+    <div class="row">
+        <div class="container col-md-8"> 
+
+            <h4 class="col-sm-12"><span>Giỏ hàng của bạn (${order.getOrderDestailsList().size()} sản phẩm)</span></h4>
+
+            <table id="cart" class="table table-hover table-condensed"> 
+                <tbody>
+                <input type="hidden" id="product-number" value=" ${order.getOrderDestailsList().size()}"/>
+                <mvc:hidden path="${order.orderDestailsList}"/>
+                <c:forEach var="orderDestails" items="${order.orderDestailsList}">
+                    <tr>
+                        <td data-th="Product" style="width:50%"> 
+                            <div class="row"> 
+                                <div class="col-sm-4 hidden-xs"><img src="<%=request.getContextPath()%>${orderDestails.product.urlImage}" alt="Sản phẩm 1" class="img-responsive" width="100">
+                                </div> 
+                                <div class="col-sm-8"> 
+                                    <h4 class="nomargin">${orderDestails.product.productName}</h4> 
+                                </div> 
+                            </div> 
+                        </td> 
+                        <td data-th="Price" style="width:20%">${orderDestails.product.unitPriceString}</td> 
+                    <input type="hidden" class="urlResetCart" value="<%=request.getContextPath()%>/cart/reset?id=${orderDestails.product.id}&quantity="/>
+                    <td data-th="Quantity" style="width:20%"><input class="form-control text-center" onchange='resetCart()' 
+                                                                    class="quantity-cart" value="${orderDestails.quantity}" type="number" min="1">
+                    </td> 
+
+                    <td class="actions" data-th="" style="width:10%">
+                        <a class="btn btn-danger btn-sm" id="delete-card" href="<%=request.getContextPath()%>/cart/delete?id=${orderDestails.id}"><i class="fa fa-trash"></i>
+                        </a>
+                    </td> 
+                    </tr>
+                </c:forEach>
+                </tbody><tfoot> 
+                    <tr> 
+                        <td>
+                            <a href="<%=request.getContextPath()%>" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua hàng</a>
+                        </td> 
+                        <td class="hidden-xs">Tổng tiền:  </td> 
+                        <td class="hidden-xs text-center"><strong>${order.sumPrice}</strong>
+                        </td> 
+                        <td>
+                        </td> 
+                    </tr> 
+                </tfoot> 
+            </table>
+        </div>
+        <div class="container col-md-8 table-payment"> 
+            <form action="" method="GET"> 
+                <table class="table">
+                    <tr>
+                        <td colspan="2" class="text-center"><span><i>Thông tin khách hàng</i></span></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%">
+                            Họ và Tên: <i style="color: red;">*</i>
+                        </td>
+                        <td style="width: 80%">
+                            <input name="name" type="text" style="width: 100%;padding: 10px;
+                                   border-radius: 50px 20px;" class="payment-input" value="${order.user.profile.lastname}${order.user.profile.firstname}" required="" placeholder="Nhập Tên của bạn">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Số điện thoại: <i style="color: red;">*</i>
+                        </td>
+                        <td>
+                            <input type="text" name="phone"style="width: 100%;padding: 10px;
+                                   border-radius: 50px 20px;" class="payment-input" value="${order.user.profile.phone}" required="" placeholder="Nhập số điện thoại">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Email:
+                        </td>
+                        <td>
+                            <input type="email" name="email" style="width: 100%;padding: 10px;
+                                   border-radius: 50px 20px;" class="payment-input" value="${order.user.profile.email}" required="" placeholder="Nhập địa chỉ email">
+                            <p>(Chi tiết đơn hàng sẽ được gửi vào email)</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <a style="width: 40%;padding: 10px" class="float-left btn btn-success" type="button" value="next">Tiếp tục  <i style="font-size: 30px;"class="fas fa-angle-double-right float-right"></i></a>
+                            <a style="width: 40%;padding: 10px" class="float-right btn btn-primary" type="submit" value="datHang">Đặt hàng ngay  <i style="font-size: 30px;"class="fas fa-phone-volume float-right"></i></a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+    </div>
+</main>
+<main id="nullProduct">
+    <h2 class="text-center">Chưa có sản phẩm để thanh toán!<br> Nhấn vào <a href="<%=request.getContextPath()%>">tôi</a> trở về trang chủ</h2>
+    <div class="form-cart row">
+        <div class="col-md-4"></div>
+        <form class="form-inline col-md-4" action="search">
+            <input class="form-control mr-md-2 text-center" name="searchValue" type="text" placeholder="Tìm kiếm...">
+            <button class="btn btn-success" type="submit">Tìm kiếm</button>
+        </form>
+    </div>
+</main>
+<jsp:include page="include/footer.jsp"/>

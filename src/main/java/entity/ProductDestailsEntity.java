@@ -33,7 +33,7 @@ public class ProductDestailsEntity {
      private String CPU;
      private String kichthuoc;
      private String trongluong;
-     @OneToOne(mappedBy = "productDestails")
+     @OneToOne
      @PrimaryKeyJoinColumn
      private ProductEntity product;
 
