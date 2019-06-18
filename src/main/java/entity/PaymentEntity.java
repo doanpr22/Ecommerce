@@ -6,6 +6,7 @@
 package entity;
 
 import java.time.LocalDate;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -25,7 +26,7 @@ public class PaymentEntity {
     private int id;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private OrdersEntity order;
     @ManyToOne

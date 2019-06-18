@@ -6,9 +6,8 @@
 
 
 $(document).ready(function () {
-   var action=$('#action').val();
-   if(action==='new'){
-       $('.product-title').html("<h2 class="text-center product-title">thanh</h2>");
-   }
-   
-}
+    
+    var order=${order};
+    var size= order.orderDestailsList().size();
+    $('#orderDestails.size').test(size);
+};

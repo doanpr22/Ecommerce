@@ -71,7 +71,7 @@
 
                         <div id="form-login" class="modal dropdown-menu-right col-md-offset-4">
 
-                            <form class="form" action="j_spring_security_check" method="POST">
+                            <form class="form" action="<%=request.getContextPath()%>/j_spring_security_check" method="POST">
                                 <div class="container ">
                                     <span id="login-close" class="close" title="Close Modal">&times;</span>
 
@@ -86,7 +86,7 @@
                                     <label class="float-right">
                                         <input    type="checkbox" checked="checked" name="remember"> Lưu trình duyệt
                                     </label>
-                                    <a href="registration" > <button class="form-control btn-primary" type="button" id="dang-ky">Đăng ký</button></a>
+                                    <a href="<%=request.getContextPath()%>/registration" > <button class="form-control btn-primary" type="button" id="dang-ky">Đăng ký</button></a>
                                     <span class="psw float-right">Quên <a href="#">mật khẩu?</a></span>
 
                                 </div>
@@ -100,7 +100,7 @@
                             <span style='font-size:15px' class="text-center">${username}</span><br></a>
                         <div class="dropdown-menu" id="taikhoan-customer-super">
                             <a class="dropdown-item" id="profile-customer"href="<%=request.getContextPath()%>/customer/profile">${user.profile.lastname} ${user.profile.firstname}</a>
-                            <a class="dropdown-item" href="#">Chỉnh sửa tài khoản</a>
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/customer/editprofile">Chỉnh sửa tài khoản</a>
                             <a class="dropdown-item" href="#">Danh sách order</a>
                             <a class="dropdown-item" href="#">Đổi mật khẩu</a>
                             <a class="dropdown-item" href="<%=request.getContextPath()%>/logout">Đăng xuất</a>
@@ -167,7 +167,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link text-center dropdown-tonggle" 
                            data-toggle="dropdown"><i class="fas fa-users"  style='font-size:20px;color: #7112DC'></i><br>
-                            <span style='font-size:15px' class="align-middle text-center" id="login">Tài khoản</span><br></a>
+                            <span style='font-size:15px' class="align-middle text-center" id="login">${username}</span><br></a>
 
                         <div class="dropdown-menu">
                            <a class="dropdown-item" href="#">Thông tin tài khoản</a>

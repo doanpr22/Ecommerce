@@ -131,7 +131,7 @@
                    
                 </td>
                 <td>
-                    <span><button class="btn-primary btn">Thanh toán</button></span>
+                    <span><a href="<%=request.getContextPath()%>/payment/all" class="btn-primary btn">Thanh toán</a></span>
                 </td>
             </tr>
         </table>

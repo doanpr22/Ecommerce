@@ -60,7 +60,7 @@ public class UsersController {
     public String index(Model model, HttpServletRequest request, HttpServletResponse response) {
 
         String role = (String) request.getSession().getAttribute("role");
-            if (role != null && role.equals("ROLE_USER") ||role.equals("ROLE_ADMIN")) {
+            if (role != null && role.equals("ROLE_USER") || role != null &&role.equals("ROLE_ADMIN")) {
                 return "redirect:/";
             } else {
                 model.addAttribute("error", "403");

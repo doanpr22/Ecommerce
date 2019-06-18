@@ -27,7 +27,10 @@ public class UserService {
     User_RoleRepository roleRepository;
 
     public UsersEntity getUserByUserName(String username) {
-        return userRepository.findByUsername(username);
+        
+        UsersEntity user=userRepository.findByUsername(username);
+        user.setPassword(null);
+        return user;
     }
 
     public List<UsersEntity> getListUser() {
@@ -35,13 +38,9 @@ public class UserService {
     }
 
     public UsersEntity saveCustomer(UsersEntity customer) {
-
-        //UsersEntity cus=userRepository.save(customer);
         User_role role = new User_role(customer.getUsername(), "ROLE_CUSTOMER");
         customer.setRole(role);
         customer.setEnabled(1);
-       // customer.setCreateday(LocalDate.now());
-        // roleRepository.save(role);
         return userRepository.save(customer);
 
     }

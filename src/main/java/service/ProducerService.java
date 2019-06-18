@@ -6,6 +6,7 @@
 package service;
 
 import entity.ProducersEntity;
+import entity.ProductEntity;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,4 +25,5 @@ public class ProducerService {
        
         return (List<ProducersEntity>)producerRepository.findAll();
     }
+  
 }

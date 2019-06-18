@@ -40,11 +40,10 @@ public class CartController {
     Cart cart;
 
     @RequestMapping(method = GET)
-    public String displayCart(Model model) {
+    public String displayCart(Model model, HttpServletRequest request) {
         init(model);
-        OrdersEntity order = cart.getOrder();
-        model.addAttribute("order", order);
-        // order.getOrderDestailsList().size();
+        model.addAttribute("cart", cart);
+        request.getSession().setAttribute("cart", cart);
         return "/cart";
     }
 
@@ -65,9 +64,7 @@ public class CartController {
         //get product by id
         ProductEntity product = productService.getProduct(idProduct);
         //add product in cartEntity
-        cart = cart.addItem(product);
-        OrdersEntity order = cart.getOrder();
-        model.addAttribute("order", order);
+        cart.addItem(product);
         return "redirect:/cart";
     }
 
@@ -75,14 +72,12 @@ public class CartController {
     public String resetCart(@RequestParam(name = "quantity") int quantity, @RequestParam(name = "id") int idProduct, Model model) {
 
         cart = cart.setQuantityOrderDestails(idProduct, quantity);
-        OrdersEntity order = cart.getOrder();
-        model.addAttribute("order", order);
         return "redirect:/cart";
     }
 
     @RequestMapping(value = "/delete", method = GET)
     public String deleteCart(@RequestParam(name = "id") int orderDestailsId, Model model) {
-        List<OrderDestailsEntity> orderDestailsEntitys = cart.getOrder().getOrderDestailsList();
+    try {     List<OrderDestailsEntity> orderDestailsEntitys = cart.getOrder().getOrderDestailsList();
 
         for (OrderDestailsEntity destailsEntity : orderDestailsEntitys) {
 
@@ -91,21 +86,10 @@ public class CartController {
                 orderDestailsEntitys.remove(destailsEntity);
             }
         }
-        cart.getOrder().setOrderDestailsList(orderDestailsEntitys);
+       
+            cart.getOrder().setOrderDestailsList(orderDestailsEntitys);
+        } catch (Exception e) {
+        }
         return "redirect:/cart";
     }
-
-    @RequestMapping(value = "paymentDestails")
-    @ResponseBody
-    public String paymentDestails(@RequestParam(name = "idOrderDestails") int idDestails, Model model) {
-        return Integer.toString(idDestails);
-    }
-
-    @RequestMapping(value = "paymentAll")
-    public String payment(Model model,HttpServletRequest request) {
-        
-        request.getSession().setAttribute("orderpayment", cart.getOrder());
-        return "redirect:/payment";
-    }
-
 }

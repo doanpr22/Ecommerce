@@ -5,6 +5,7 @@
  */
 package controller;
 
+import entity.Cart;
 import entity.CategoryEntity;
 import entity.OrdersEntity;
 import entity.PaymentEntity;
@@ -13,13 +14,17 @@ import entity.UsersEntity;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import org.hibernate.internal.CriteriaImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import org.springframework.web.bind.annotation.ResponseBody;
 import service.CategoryService;
+import service.OrdersService;
+import service.PaymentService;
 import service.ProductDestailsService;
 import service.ProductService;
 import service.UserService;
@@ -29,6 +34,7 @@ import service.UserService;
  * @author USER
  */
 @Controller
+
 @RequestMapping(value = "/payment")
 public class PaymentController {
 
@@ -42,20 +48,42 @@ public class PaymentController {
     ProductDestailsService productDestailsService;
     @Autowired
     UserService userService;
+    @Autowired
+    OrdersService ordersService;
+    @Autowired
+    PaymentService paymentService;
 
-    @RequestMapping(method = GET)
+    
+    @RequestMapping(method = GET,value = "all")
+    
     public String payment(Model model, HttpServletRequest request) {
         init(model);
-        OrdersEntity order = (OrdersEntity) request.getSession().getAttribute("orderpayment");
+       Cart cart= (Cart) request.getSession().getAttribute("cart");
+       OrdersEntity order=cart.getOrder();
+
         try {
             UsersEntity customer = (UsersEntity) request.getSession().getAttribute("user");
             if (customer != null) {
                 order.setUser(customer);
+
             }
         } catch (Exception e) {
         }
-       model.addAttribute("order", order);
+        model.addAttribute("order", order);
         return "payment";
+    }
+
+    
+    @RequestMapping(value = "card")
+    public String paymentCart(OrdersEntity order, Model model) {
+
+        return "";
+    }
+
+    @RequestMapping(value = "paymentPard")
+    public String paymentCart(PaymentEntity payment, Model model) {
+
+        return "";
     }
 
     public void init(Model model) {

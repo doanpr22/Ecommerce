@@ -10,7 +10,7 @@
 <jsp:include page="include/main-left-top.jsp"/>
 
 <main class=" row" id="notNullProduct">
-    <h2 class="text-center col-sm-12">Giỏ hàng của bạn (${order.getOrderDestailsList().size()} sản phẩm)</h2>
+    <h2 class="text-center col-sm-12">Giỏ hàng của bạn (${cart.order.getOrderDestailsList().size()} sản phẩm)</h2>
     <div class="container"> 
         
         <table id="cart" class="table table-hover table-condensed"> 
@@ -24,8 +24,8 @@
                 </tr> 
             </thead>               
             <tbody>
-            <input type="hidden" id="product-number" value=" ${order.getOrderDestailsList().size()}"/>
-            <c:forEach var="orderDestails" items="${order.orderDestailsList}">
+            <input type="hidden" id="product-number" value=" ${cart.order.getOrderDestailsList().size()}"/>
+            <c:forEach var="orderDestails" items="${cart.order.orderDestailsList}">
                 <tr>
                     <td data-th="Product"> 
                         <div class="row"> 
@@ -58,11 +58,11 @@
                     <td><a href="<%=request.getContextPath()%>" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua hàng</a>
                     </td> 
                     <td colspan="2" class="hidden-xs">Tổng tiền:  </td> 
-                    <td class="hidden-xs text-center"><strong>${order.sumPrice}</strong>
+                    <td class="hidden-xs text-center"><strong>${cart.order.sumPrice}</strong>
                     </td> 
                     <td>
 
-                        <a href="<%=request.getContextPath()%>/cart/paymentAll" class="btn btn-success btn-block"> <i class='fab fa-amazon-pay' style='font-size:20px;color:#155BF2'></i>Thanh toán tất cả<i class="fa fa-angle-right"></i></a>
+                        <a href="<%=request.getContextPath()%>/payment/all" class="btn btn-success btn-block"> <i class='fab fa-amazon-pay' style='font-size:20px;color:#155BF2'></i>Thanh toán tất cả<i class="fa fa-angle-right"></i></a>
                     </td> 
                 </tr> 
             </tfoot> 

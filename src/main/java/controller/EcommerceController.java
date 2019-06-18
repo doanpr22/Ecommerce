@@ -5,13 +5,15 @@
  */
 package controller;
 
+import entity.Cart;
 import entity.CategoryEntity;
+import entity.OrdersEntity;
 import entity.ProductEntity;
 import entity.UsersEntity;
 import java.util.List;
+import java.util.Random;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +22,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import service.CategoryService;
+import service.OrdersService;
 import service.ProductDestailsService;
 import service.ProductService;
 import service.UserService;
+import utility.SendGmail;
 
 /**
  *
@@ -42,16 +46,16 @@ public class EcommerceController {
     ProductDestailsService productDestailsService;
     @Autowired
     UserService userService;
+    @Autowired
+    OrdersService ordersService;
 
     @RequestMapping(method = GET)
     public String index(Model model, HttpServletRequest request) {
         init(model);
-        String role = (String) request.getSession().getAttribute("role");
-
-        if (role == null) {
-            request.getSession().setAttribute("role","null");
-        }
-       return "index";
+       // String role = (String) request.getSession().getAttribute("role");
+      //  UsersEntity user=(UsersEntity)request.getSession().getAttribute("user");
+        
+        return "index";
     }
 
     public void init(Model model) {
@@ -93,22 +97,6 @@ public class EcommerceController {
         return "/index";
     }
 
-    @RequestMapping(value = "/searchManhinh")
-    public String searchSuper(@RequestParam(name = "value1") String value1, Model model, HttpServletRequest request) {
-        init(model);
-
-        String searchValue = (String) request.getSession().getAttribute("searchValue");
-        if (searchValue == null) {
-            return search(value1, model, request);
-        } else {
-            List<ProductEntity> listProductSearch = productService.getSearchProduct(searchValue);
-
-            model.addAttribute("productlist", listProductSearch);
-        }
-
-        return "/index";
-    }
-
     @RequestMapping(value = "registration")
     public String registration(Model model) {
         init(model);
@@ -117,5 +105,59 @@ public class EcommerceController {
         return "/registration";
     }
 
+    @RequestMapping(value = "saveRegistration")
+    @ResponseBody
+    public String saveRegistration(Model model, UsersEntity customer, HttpServletRequest request) {
+       //  customer = userService.saveCustomer(customer);
+         return customer.toString();
+        /* if(customer!=null){
+             model.addAttribute("saveRegistration", "success");
+             return "index";
+         }
+         else{
+             return "redirect:/";
+         }*/
+         
+        //  String gmailTo="chiyeumoinguoi@gmail.com";
+      //  String subject = "Thế giới di động";
+       //// SendGmail.send("chiyeumoinguoi@gmail.com", subject, "okok");
+        //return customer.toString();
+
+    }
+
+    @RequestMapping(value = "order")
+    @ResponseBody
+    public String order(OrdersEntity order, Model model, HttpServletRequest request) {
+        Cart cart = (Cart) request.getSession().getAttribute("cart");
+        order.setOrderDestailsList(cart.getOrder().getOrderDestailsList());
+
+        UsersEntity customer = (UsersEntity) request.getSession().getAttribute("user");
+        if (customer != null) {
+           order.setUser(customer);
+        }
+        else{
+            Random random=new Random();
+            int id=random.nextInt(100000);
+            
+            UsersEntity cus=order.getUser();
+            cus.setId(id);
+            order.setUser(cus);
+        }
+        try {
+            
+          //  order = ordersService.save(order);
+           OrdersEntity or=new OrdersEntity();
+           or.setId(3);
+           ordersService.save(order);
+            
+            model.addAttribute("save", "success");
+        } catch (Exception e) {
+            model.addAttribute("save", "error");
+            return "payment" + order.getOrderDestailsList().size() + order.toString()+e.getMessage();
+        }
+        //model.addAttribute("order", order);
+        model.addAttribute("listOrder", ordersService.getOrderbyCustomer(order.getUser().getId()));
+        return "customer/orderList";
+    }
 
 }

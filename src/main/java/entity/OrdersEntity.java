@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Random;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,18 +39,18 @@ public class OrdersEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate shipDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "userId")
     private UsersEntity user;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
     private List<OrderDestailsEntity> orderDestailsList;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "shippingId")
     private ShippingEntity shipping;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "paymentTypeId")
     private PaymentTypeEntity paymentType;
     @OneToOne(mappedBy = "order")
@@ -175,4 +176,10 @@ public class OrdersEntity {
             return this;
         }
     }
+
+    @Override
+    public String toString() {
+        return "OrdersEntity{" + "id=" + id + ", orderDate=" + orderDate + ", shipDate=" + shipDate + ", user=" + user + ", orderDestailsList=" + orderDestailsList + ", shipping=" + shipping + '}';
+    }
+    
 }

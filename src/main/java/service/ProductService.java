@@ -67,6 +67,23 @@ public class ProductService {
                 listProduct.addAll(listProductsearch);
             }
 
+            listProductsearch = productRepository.findByProductDestailsHedieuhanhLike(value);
+            if (listProductsearch != null) {
+                listProduct.addAll(listProductsearch);
+            }
+            listProductsearch = productRepository.findByProductDestailsBonhotrongLike(value);
+            if (listProductsearch != null) {
+                listProduct.addAll(listProductsearch);
+            }
+            listProductsearch = productRepository.findByProductDestailsCamerasauLike(value);
+            if (listProductsearch != null) {
+                listProduct.addAll(listProductsearch);
+            }
+             listProductsearch = productRepository.findByProductDestailsCameratruocLike(value);
+            if (listProductsearch != null) {
+                listProduct.addAll(listProductsearch);
+            }
+
             listProductsearch = productRepository.findByCategoryCategoryNameLike(value);
             if (listProductsearch != null) {
                 listProduct.addAll(listProductsearch);
@@ -76,6 +93,11 @@ public class ProductService {
             if (listProductsearch != null) {
                 listProduct.addAll(listProductsearch);
             }
+            listProductsearch = productRepository.findByProductDestailsMauLike(value);
+            if (listProductsearch != null) {
+                listProduct.addAll(listProductsearch);
+            }
+            
 
         } catch (Exception e) {
         }

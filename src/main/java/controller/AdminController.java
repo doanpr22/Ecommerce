@@ -45,9 +45,14 @@ public class AdminController {
     UserService userService;
 
     @RequestMapping(method = GET)
-    @ResponseBody
     public String index(Model model, HttpServletRequest request) {
-        return "redirect:/";
+         String role = (String) request.getSession().getAttribute("role");
+            if (role != null && role.equals("ROLE_ADMIN")) {
+                return "redirect:/";
+            } else {
+                model.addAttribute("error", "403");
+                return "error/403";
+            }
     }
    
 }

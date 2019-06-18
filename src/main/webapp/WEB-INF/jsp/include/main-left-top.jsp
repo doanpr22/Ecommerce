@@ -45,40 +45,39 @@
             </dd>
 
             <dl>
-                <dt>Màn hình</dt>
+                <dt>Camera</dt>
             </dl>
             <dd>
                 <ol class="sp-ol">
-                    <li ><a href="">< 5 inches</a></li>
-                    <li><a href="">Từ 5 đên 5.5 inches</a></li>
-                    <li><a href="">Từ 5.5 đến 6 inches</a></li>
-                    <li><a href="">> 6 inches</a></li>
+                    <li><a href="<%=request.getContextPath()%>/search?searchValue=5 MP">5 MP</a></li>
+                    <li><a href="<%=request.getContextPath()%>/search?searchValue=8 MP"">8 MP</a></li>
+                    <li><a href="<%=request.getContextPath()%>/search?searchValue=12 MP"">12 MP</a></li>
+                    <li ><a href="<%=request.getContextPath()%>/search?searchValue=24 MP">24 MP</a></li>
+
                 </ol>
             </dd>
-            <dl>
-                <dt>Bộ nhớ trong</dt>
+             <dl>
+                <dt>Màu</dt>
             </dl>
             <dd>
                 <ol class="sp-ol">
-                    <li ><a href="">256GB</a></li>
-                    <li><a href="">128GB</a></li>
-                    <li><a href="">64GB</a></li>
-                    <li><a href="">36GB</a></li>
-                    <li><a href="">16GB</a></li>
-                    <li><a href="">8GB</a></li>
-                    <li><a href="">4GB</a></li>
+                    <li ><a href="<%=request.getContextPath()%>/search?searchValue=đen"> Đen</a></li>
+                    <li><a href="<%=request.getContextPath()%>/search?searchValue=vàng">Vàng</a></li>
+                    <li><a href="<%=request.getContextPath()%>/search?searchValue=xanh">Xanh</a></li>
+                    <li><a href="<%=request.getContextPath()%>/search?searchValue=hồng">Hồng</a></li>
+                    <li><a href="<%=request.getContextPath()%>/search?searchValue=đỏ">Đỏ</a></li>
                 </ol>
             </dd>
+            
             <dl>
                 <dt>Hệ điều hành</dt>
             </dl>
             <dd>
                 <ol class="sp-ol">
-                    <li ><a href="#">Tất cả</a></li>
-                    <li><a href="#">Android</a></li>
-                    <li><a href="#">iOS</a></li>
-                    <li><a href="#">Windown</a></li>
-                    <li><a href="#">Khác</a></li>
+                    <li ><a href="<%=request.getContextPath()%>">Tất cả</a></li>
+                    <li><a href="<%=request.getContextPath()%>/search?searchValue=android">Android</a></li>
+                    <li><a href="<%=request.getContextPath()%>/search?searchValue=ios">iOS</a></li>
+                    <li><a href="<%=request.getContextPath()%>/search?searchValue=windown">Windown</a></li>
                 </ol>
             </dd>
         </div>
@@ -100,7 +99,7 @@
 
                     <select class="browser-default custom-select" style="width: 200px; border-radius: 10%;">
                         <option selected value="0">Giá từ cao tới thấp</option>
-                        <option value="1">Giá từ thấp tới cao</option>
+                        <option value="1" onclick="reverseList()">Giá từ thấp tới cao</option>
                         <option value="2">Các sản phẩm hot</option>
                         <option value="3">Sản phẩm được mua nhiều nhất</option>
                     </select>

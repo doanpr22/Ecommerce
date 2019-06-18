@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 public class CreditCard {
     @Id
     private int id;
+   
     private long amount;
     private String password;
     

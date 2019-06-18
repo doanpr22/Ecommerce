@@ -1,5 +1,5 @@
 
-/* global order, login */
+/* global order, login, productlist */
 
 $(document).ready(function () {
     $("#login-close").click(function () {
@@ -45,6 +45,8 @@ $(document).ready(function () {
     var action = $('#action').val();
     if (action === "edit") {
         $('#anh-sp').hide();
-    }
+    };
+
+
    
 });

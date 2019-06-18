@@ -258,3 +258,38 @@ section{
     padding: 10px;
     border-radius: 50px 20px;
 }
+
+ .col-left{
+    margin-top: 10px;
+    background-color: #58FA82;
+}
+.col-left *{
+    text-align: center;
+}
+.col-left ul{
+    list-style-position: inside;
+
+}
+.col-left li{
+    height: 40px;
+    color: #088A08;
+    border-bottom:3px dashed darkgrey;
+    background-color: #F2F2F2;
+}
+.col-left a{
+    color: #088A08;
+    font-weight: bold;
+}
+.col-left li:hover{
+    background-color: #A4A4A4;
+}
+.col-left dt{
+    letter-spacing: .5px;
+    color: #0000FF;
+    text-transform: uppercase;      
+    margin: 0px;
+    padding: 10px;
+}
+.red{
+    color: red;
+}

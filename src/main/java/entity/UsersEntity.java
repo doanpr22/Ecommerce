@@ -47,7 +47,7 @@ public class UsersEntity {
     @JoinColumn(name = "profileId")
     private ProfileEntity profile;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     private List<OrdersEntity> orderList;
 
     @ManyToOne(cascade = CascadeType.ALL)
