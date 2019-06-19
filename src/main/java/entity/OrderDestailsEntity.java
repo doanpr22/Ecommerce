@@ -30,14 +30,15 @@ public class OrderDestailsEntity {
     @ManyToOne
     @JoinColumn(name = "productId")
     private ProductEntity product;
-    private double sumPrice;
     @ManyToOne
     @JoinColumn(name = "orderId")
     private OrdersEntity order;
 
     
+    
+    
     public String getSumPrice() {
-        sumPrice= quantity*product.getUnitPrice();
+        double sumPrice= quantity*product.getUnitPrice();
        return FormatMoney.getMoney(sumPrice);
     }
 

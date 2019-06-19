@@ -55,6 +55,7 @@ public class UsersEntity {
 
     
     public UsersEntity() {
+        createday=LocalDate.now();
     }
 
     public User_role getRole() {
@@ -120,10 +121,4 @@ public class UsersEntity {
     public String getPassword() {
         return password;
     }
-
-    @Override
-    public String toString() {
-        return "UsersEntity{" + "id=" + id + ", username=" + username + ", password=" + password + ", createday=" + createday + ", profile=" + profile + '}';
-    }
-
-}
+   }

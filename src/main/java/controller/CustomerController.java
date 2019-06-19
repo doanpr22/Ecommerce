@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import service.CategoryService;
 import service.OrdersService;
@@ -55,9 +56,6 @@ public class CustomerController {
     public String index(Model model, HttpServletRequest request) {
         String role = (String) request.getSession().getAttribute("role");
         if (role != null && role.equals("ROLE_CUSTOMER")) {
-            String username = (String) request.getSession().getAttribute("username");
-            UsersEntity customer = userService.getUserByUserName(username);
-            request.getSession().setAttribute("user", customer);
             return "redirect:/";
         } else {
             model.addAttribute("error", "403");
@@ -107,12 +105,26 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "listOrder")
+    //  @ResponseBody
     public String listOrder(Model model, HttpServletRequest request) {
+        init(model);
+        UsersEntity customer = (UsersEntity) request.getSession().getAttribute("user");
+        try {
+            List<OrdersEntity> listOrder = ordersService.getOrderbyCustomer(customer.getId());
+            model.addAttribute("listOrder", listOrder);
+            return "/customer/listOrder";
 
+        } catch (Exception e) {
+            return "redirect:/";
+            // return e.toString();
+        }
+
+        // return "customer/orderList";
+        /*
+        
         UsersEntity customer = (UsersEntity) request.getSession().getAttribute("user");
         List<OrdersEntity> listOrder = ordersService.getOrderbyCustomer(customer.getId());
-        model.addAttribute("listOrder", listOrder);
-        return "customer/orderList";
+        model.addAttribute("listOrder", listOrder);*/
     }
 
     @RequestMapping(value = "saveRegistration")
@@ -124,5 +136,17 @@ public class CustomerController {
         } else {
             return "redirect:/";
         }
+    }
+
+    @RequestMapping(value = "deleteOrderDestails")
+    public String deleteOrderDestails(@RequestParam(name = "idOrderDestails") int orderDestaisId, HttpServletRequest request, Model model) {
+
+        try {
+            ordersService.deleteOrderDestails(orderDestaisId);
+            return listOrder(model, request);
+        } catch (Exception e) {
+            return "redirect:/";
+        }
+
     }
 }

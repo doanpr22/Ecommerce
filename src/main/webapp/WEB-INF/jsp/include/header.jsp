@@ -12,6 +12,7 @@
         <!-- Required meta tags -->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="icon" href="https://iviettech.vn/wp-content/themes/viettech/img/front/favicon.ico" type="image/x-icon" />
         <title>Thế giới điện thoại</title>
 
         <!-- Bootstrap CSS -->
@@ -31,7 +32,7 @@
         <input type="hidden" id="error" value="${error}"/>
 
         <header class="container-fluid row">
-            <nav class="navbar navbar-expand-md col-md-6">
+            <nav class="navbar navbar-expand-md col-md-5">
                 <a class="navbar-brand logo" href="<%=request.getContextPath()%>">
                     <img src="<%=request.getContextPath()%>/image/icon/apple.icon.PNG" width="200px" height="50px">
                 </a>
@@ -43,7 +44,7 @@
                 </ul>
             </nav>
             <%--Menu trang index khi chua đăng nhập --%>
-            <nav class="navbar navbar-expand-md col-md-6 nav-header justify-content-center "  id="nav-index">
+            <nav class="navbar navbar-expand-md col-md-7 nav-header justify-content-center "  id="nav-index">
                 <ul class="navbar-nav nav-between">
 
                     <li class="nav-item ">
@@ -73,7 +74,7 @@
 
                             <form class="form" action="<%=request.getContextPath()%>/j_spring_security_check" method="POST">
                                 <div class="container ">
-                                    <span id="login-close" class="close" title="Close Modal">&times;</span>
+                                    <span id="login-close" class="close" style="font-size: 30px;" title="Close Modal">&times;</span>
 
                                     <div class="col-xs-6 col-md-12">
                                         <input class="form-control" name="username" placeholder="UserName" required="" autofocus="" type="text"> 
@@ -99,9 +100,9 @@
                            data-toggle="dropdown"><i class="fas fa-users"  style='font-size:20px;color: #7112DC'></i><br>
                             <span style='font-size:15px' class="text-center">${username}</span><br></a>
                         <div class="dropdown-menu" id="taikhoan-customer-super">
-                            <a class="dropdown-item" id="profile-customer"href="<%=request.getContextPath()%>/customer/profile">${user.profile.lastname} ${user.profile.firstname}</a>
+                            <a class="dropdown-item" id="profile-customer"href="<%=request.getContextPath()%>/customer/profile"><strong>${user.profile.lastname} ${user.profile.firstname}</strong></a>
                             <a class="dropdown-item" href="<%=request.getContextPath()%>/customer/editprofile">Chỉnh sửa tài khoản</a>
-                            <a class="dropdown-item" href="#">Danh sách order</a>
+                            <a class="dropdown-item" href="<%=request.getContextPath()%>/customer/listOrder">Danh sách order</a>
                             <a class="dropdown-item" href="#">Đổi mật khẩu</a>
                             <a class="dropdown-item" href="<%=request.getContextPath()%>/logout">Đăng xuất</a>
                     </div>
@@ -140,18 +141,21 @@
                            id="navbardrop" data-toggle="dropdown">Quản lý<br/> Khách hàng</a>
 
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Thêm sản phẩm</a>
-                            <a class="dropdown-item" href="#">Chỉnh sửa Sp</a>
-                            <a class="dropdown-item" href="#">Xóa Sp</a>
+                            <a class="dropdown-item" href="#">Danh sách khách hàng</a>
+                            <a class="dropdown-item" href="#">Các khách hàng vip</a>
+                            <a class="dropdown-item" href="#">Các khách hàng chưa đk</a>
+                            <a class="dropdown-item" href="#">Xóa khách hàng</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a href="" class="nav-link text-center dropdown-tonggle" 
-                           id="navbardrop" data-toggle="dropdown">Quản lý<br/>Danh mục</a>
+                           id="navbardrop" data-toggle="dropdown">Quản lý<br/>loại sản phẩm</a>
 
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Thêm danh mục SP</a>
-                            <a class="dropdown-item" href="#">Danh sách các danh mục</a>
+                            <a class="dropdown-item" href="#">Danh sách loại sản phẩm</a>
+                            <a class="dropdown-item" href="#">Thêm loại sản phẩm</a>
+                            <a class="dropdown-item" href="#">Sửa loại sản phẩm</a>
+                            <a class="dropdown-item" href="#">Xóa loại sản phẩm</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -170,8 +174,8 @@
                             <span style='font-size:15px' class="align-middle text-center" id="login">${username}</span><br></a>
 
                         <div class="dropdown-menu">
-                           <a class="dropdown-item" href="#">Thông tin tài khoản</a>
-                            <a class="dropdown-item" href="#">Chỉnh sửa tài khoản</a>
+                            <a class="dropdown-item" href="http://localhost:8084/E-Commerce/users/profile"><strong>${user.profile.lastname} ${user.profile.firstname}</strong></a>
+                            <a class="dropdown-item" href="http://localhost:8084/E-Commerce/users/editprofile">Chỉnh sửa tài khoản</a>
                             <a class="dropdown-item" href="#">Đổi mật khẩu</a>
                             <a class="dropdown-item" href="<%=request.getContextPath()%>/logout">Đăng xuất</a>
                     </div>

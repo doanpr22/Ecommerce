@@ -38,42 +38,65 @@ public class OrdersEntity {
     private LocalDate orderDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate shipDate;
-
-    @ManyToOne
+ 
+    private String customerName;
+    private String customerEmail;
+    private String customerPhone;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     private UsersEntity user;
 
-    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<OrderDestailsEntity> orderDestailsList;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "shippingId")
-    private ShippingEntity shipping;
-
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "paymentTypeId")
     private PaymentTypeEntity paymentType;
-    @OneToOne(mappedBy = "order")
-    private PaymentEntity payment;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "creditCardid")
+    private CreditCard creditCard;
 
-    public PaymentEntity getPayment() {
-        return payment;
+    public CreditCard getCreditCard() {
+        return creditCard;
     }
 
-    public void setPayment(PaymentEntity payment) {
-        this.payment = payment;
+    public void setCreditCard(CreditCard creditCard) {
+        this.creditCard = creditCard;
     }
+
     
-    
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
+
+    public String getCustomerPhone() {
+        return customerPhone;
+    }
+
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
+    }
+
     public OrdersEntity() {
         orderDate=LocalDate.now();
         orderDestailsList=new ArrayList<OrderDestailsEntity>();
     }
 
-    public ShippingEntity getShipping() {
-        return shipping;
-    }
-
+    
     public PaymentTypeEntity getPaymentType() {
         return paymentType;
     }
@@ -82,10 +105,7 @@ public class OrdersEntity {
         this.paymentType = paymentType;
     }
 
-    public void setShipping(ShippingEntity shipping) {
-        this.shipping = shipping;
-    }
-
+    
     public int getId() {
         return id;
     }
@@ -176,10 +196,16 @@ public class OrdersEntity {
             return this;
         }
     }
-
-    @Override
-    public String toString() {
-        return "OrdersEntity{" + "id=" + id + ", orderDate=" + orderDate + ", shipDate=" + shipDate + ", user=" + user + ", orderDestailsList=" + orderDestailsList + ", shipping=" + shipping + '}';
+    public OrderDestailsEntity getOrderdestailsById(int idDestaiks){
+        for(OrderDestailsEntity destailsEntity: orderDestailsList){
+            if(destailsEntity.getId()==idDestaiks){
+                return destailsEntity;
+            }
+        }
+        return null;
     }
+
+ 
+   
     
 }

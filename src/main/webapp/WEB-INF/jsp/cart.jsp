@@ -44,12 +44,8 @@
                     </td> 
 
                        <td data-th="Subtotal" class="text-center" ><p class="sum-price">${orderDestails.sumPrice}</p></td> 
-                <td class="actions" data-th="">
-                    <a class="btn btn-danger btn-sm" id="delete-card" href="<%=request.getContextPath()%>/cart/delete?id=${orderDestails.id}"><i class="fa fa-trash"></i>
-                    </a>
-                    <a class="btn btn-danger btn-sm" id="delete-card" href="<%=request.getContextPath()%>/cart/paymentDestails?idOrderDestails=${orderDestails.id}"><i class='fab fa-amazon-pay' style='font-size:20px;color:#155BF2'></i>
-                    </a>
-
+                <td class="actions">
+                    <a class="btn btn-danger btn-sm" id="delete-card" href="<%=request.getContextPath()%>/cart/delete?id=${orderDestails.id}"><i style="font-size: 30px;"class="fa fa-trash"></i>
                 </td> 
                 </tr>
             </c:forEach>
@@ -62,7 +58,7 @@
                     </td> 
                     <td>
 
-                        <a href="<%=request.getContextPath()%>/payment/all" class="btn btn-success btn-block"> <i class='fab fa-amazon-pay' style='font-size:20px;color:#155BF2'></i>Thanh toán tất cả<i class="fa fa-angle-right"></i></a>
+                        <a href="<%=request.getContextPath()%>/payment/orders" class="btn btn-success btn-block"> <i class='fab fa-amazon-pay' style='font-size:20px;color:#155BF2'></i>Thanh toán tất cả<i class="fa fa-angle-right"></i></a>
                     </td> 
                 </tr> 
             </tfoot> 
@@ -70,7 +66,7 @@
     </div>
 </main>
 <main id="nullProduct">
-    <h2 class="text-center">Bạn chưa mua được gì hả?<br> Nhấn vào <a href="<%=request.getContextPath()%>">tôi</a> để chon sản phẩm nè!</h2>
+    <h2 class="text-center">Bạn chưa mua được gì hả?<br> Nhấn vào để trở về <a href="<%=request.getContextPath()%>"> trang chủ</a></h2>
     <div class="form-cart row">
         <div class="col-md-4"></div>
         <form class="form-inline col-md-4" action="search">

@@ -52,10 +52,14 @@ public class EcommerceController {
     @RequestMapping(method = GET)
     public String index(Model model, HttpServletRequest request) {
         init(model);
-       // String role = (String) request.getSession().getAttribute("role");
-      //  UsersEntity user=(UsersEntity)request.getSession().getAttribute("user");
-        
+        String role = (String) request.getSession().getAttribute("role");
+        if (role != null) {
+            String username = (String) request.getSession().getAttribute("username");
+            UsersEntity user = userService.getUserByUserName(username);
+            request.getSession().setAttribute("user", user);
+        }
         return "index";
+
     }
 
     public void init(Model model) {
@@ -97,19 +101,25 @@ public class EcommerceController {
         return "/index";
     }
 
-    @RequestMapping(value = "registration")
+    @RequestMapping(value = "/registration")
     public String registration(Model model) {
         init(model);
-        UsersEntity customer = new UsersEntity();
-        model.addAttribute("customer", customer);
+        model.addAttribute("customer", new UsersEntity());
         return "/registration";
     }
 
-    @RequestMapping(value = "saveRegistration")
-    @ResponseBody
+    @RequestMapping(value = "/saveRegistration")
     public String saveRegistration(Model model, UsersEntity customer, HttpServletRequest request) {
-       //  customer = userService.saveCustomer(customer);
-         return customer.toString();
+        try {
+            customer = userService.saveCustomer(customer);
+            model.addAttribute("registration", "success");
+
+        } catch (Exception e) {
+            model.addAttribute("registration", "error");
+
+        }
+
+        return "redirect:/";
         /* if(customer!=null){
              model.addAttribute("saveRegistration", "success");
              return "index";
@@ -117,47 +127,31 @@ public class EcommerceController {
          else{
              return "redirect:/";
          }*/
-         
-        //  String gmailTo="chiyeumoinguoi@gmail.com";
-      //  String subject = "Thế giới di động";
-       //// SendGmail.send("chiyeumoinguoi@gmail.com", subject, "okok");
-        //return customer.toString();
 
+        //  String gmailTo="chiyeumoinguoi@gmail.com";
+        //  String subject = "Thế giới di động";
+        //// SendGmail.send("chiyeumoinguoi@gmail.com", subject, "okok");
+        //return customer.toString();
     }
 
-    @RequestMapping(value = "order")
-    @ResponseBody
+    @RequestMapping(value = "/order")
+    //  @ResponseBody
     public String order(OrdersEntity order, Model model, HttpServletRequest request) {
         Cart cart = (Cart) request.getSession().getAttribute("cart");
+        if (order.getUser().getId() == 0) {
+            order.setCustomerEmail(order.getUser().getProfile().getEmail());
+            String name = order.getUser().getProfile().getLastname() + " " + order.getUser().getProfile().getFirstname();
+            order.setCustomerName(name);
+            order.setCustomerPhone(order.getUser().getProfile().getPhone());
+            order.setUser(null);
+        }
         order.setOrderDestailsList(cart.getOrder().getOrderDestailsList());
-
-        UsersEntity customer = (UsersEntity) request.getSession().getAttribute("user");
-        if (customer != null) {
-           order.setUser(customer);
-        }
-        else{
-            Random random=new Random();
-            int id=random.nextInt(100000);
-            
-            UsersEntity cus=order.getUser();
-            cus.setId(id);
-            order.setUser(cus);
-        }
         try {
-            
-          //  order = ordersService.save(order);
-           OrdersEntity or=new OrdersEntity();
-           or.setId(3);
-           ordersService.save(order);
-            
-            model.addAttribute("save", "success");
+            ordersService.save(order);
         } catch (Exception e) {
-            model.addAttribute("save", "error");
-            return "payment" + order.getOrderDestailsList().size() + order.toString()+e.getMessage();
+            //  return "index11";
         }
-        //model.addAttribute("order", order);
-        model.addAttribute("listOrder", ordersService.getOrderbyCustomer(order.getUser().getId()));
-        return "customer/orderList";
+        return index(model, request);
     }
 
 }

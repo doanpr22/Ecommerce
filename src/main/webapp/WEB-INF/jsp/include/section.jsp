@@ -13,10 +13,8 @@
                 <div class="product-img"><a class="urlByAction" href="<%=request.getContextPath()%>/product-destails?productId=${product.id}"><img src="<%=request.getContextPath()%>${product.urlImage}"></a></div>
                 <div class="product-info">
                     <div class="title text-center"><a class="urlByAction" href="<%=request.getContextPath()%>/product-destails?productId=${product.id}"><span><i>${product.productName} ${product.productDestails.bonhotrong} <br>Chính hãng</i></span></a></div>
-                    <div class="price">
-                        <p class="new-price">${product.unitPriceString}</p>
-                        <s class="old-price">${product.unitPriceString}</s>
-                        
+                    <div class="price text-center">
+                        <p class="new-price text-center">${product.unitPriceString}</p>                        
                     </div>
 
                 </div>

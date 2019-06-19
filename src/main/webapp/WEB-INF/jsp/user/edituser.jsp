@@ -1,10 +1,3 @@
-<%-- 
-    Document   : profilecustomer
-    Created on : Jun 15, 2019, 12:47:58 PM
-    Author     : USER
---%>
-
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="mvc" %>
@@ -14,17 +7,17 @@
 <jsp:include page="../include/main-left-top.jsp"/>
 
 <section>
-        <script type="text/javascript">
+    <script type="text/javascript">
         function confirmAction() {
-        return confirm("Bạn có muốn chỉnh sửa thông tin khách hàng?");
+        return confirm("Bạn có muốn chỉnh sửa thông tin quản lý?");
     }
 </script>
     <div class="row">
         <div class="col-md-3"></div>
 
         <div class="col-md-5">
-            <mvc:form  modelAttribute="customer" action="saveRegistration"  method="post" class="form form_register">
-                <h2 class="text-center">Thông tin khách hàng</h2>
+            <mvc:form  modelAttribute="user" action=""  method="post" class="form form_register">
+                <h2 class="text-center">Chỉnh sửa thông tin quản lý</h2>
                 <mvc:hidden path="id"/>
                 <mvc:hidden path="profile.id"/>
                 <div class="form-group">
@@ -77,7 +70,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-success float-right" onclick="return confirmAction()" style="width: 200px" type="submit">Lưu thông tin</button>
+                    <button class="btn btn-success float-right" style="width: 200px" onclick="return confirmAction()" type="submit">Lưu thông tin</button>
                 </div>
             </mvc:form>
         </div>

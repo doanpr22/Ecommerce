@@ -45,8 +45,12 @@ $(document).ready(function () {
     var action = $('#action').val();
     if (action === "edit") {
         $('#anh-sp').hide();
-    };
+    }
+    ;
+    
+    $('#login-close').click(function (){
+        $('#form-login').hide();
+    });
 
 
-   
 });

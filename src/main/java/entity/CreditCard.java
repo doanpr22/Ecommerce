@@ -16,16 +16,35 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class CreditCard {
+
     @Id
     private int id;
-   
+
     private long amount;
     private String password;
-    
+    private String name;
+
+    private String PIN;
     @OneToMany(mappedBy = "creditCard")
-    private List<PaymentEntity> listPayMent;
+    private List<OrdersEntity> order;
 
     public CreditCard() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPIN() {
+        return PIN;
+    }
+
+    public void setPIN(String PIN) {
+        this.PIN = PIN;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getId() {
@@ -48,17 +67,13 @@ public class CreditCard {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public List<OrdersEntity> getOrder() {
+        return order;
     }
 
-    public List<PaymentEntity> getListPayMent() {
-        return listPayMent;
+    public void setOrder(List<OrdersEntity> order) {
+        this.order = order;
     }
 
-    public void setListPayMent(List<PaymentEntity> listPayMent) {
-        this.listPayMent = listPayMent;
-    }
-    
-    
+   
 }

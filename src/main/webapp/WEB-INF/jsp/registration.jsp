@@ -74,7 +74,7 @@
                     <label>Tôi đồng ý điều khoản sử dụng</label>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-success" type="submit">Đăng ký</button>
+                    <button class="btn btn-success float-right" style="width: 200px;" type="submit">Đăng ký</button>
                 </div>
             </mvc:form>
         </div>		

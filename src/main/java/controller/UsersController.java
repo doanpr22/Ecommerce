@@ -6,6 +6,7 @@
 package controller;
 
 import entity.CategoryEntity;
+import entity.OrdersEntity;
 import entity.ProducersEntity;
 import entity.ProductEntity;
 import entity.UsersEntity;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import service.CategoryService;
+import service.OrdersService;
 import service.ProducerService;
 import service.ProductDestailsService;
 import service.ProductImageService;
@@ -55,17 +57,33 @@ public class UsersController {
     ProductImageService productImageService;
     @Autowired
     UserService userService;
+    @Autowired
+    OrdersService ordersService;
 
     @RequestMapping(method = GET)
     public String index(Model model, HttpServletRequest request, HttpServletResponse response) {
 
         String role = (String) request.getSession().getAttribute("role");
-            if (role != null && role.equals("ROLE_USER") || role != null &&role.equals("ROLE_ADMIN")) {
-                return "redirect:/";
-            } else {
-                model.addAttribute("error", "403");
-                return "error/403";
-            }
+        if (role != null && role.equals("ROLE_USER") || role != null && role.equals("ROLE_ADMIN")) {
+            return "redirect:/";
+        } else {
+            model.addAttribute("error", "403");
+            return "error/403";
+        }
+    }
+
+    @RequestMapping(value = "orderList")
+    public String orderList(Model model, HttpServletRequest request) {
+        String role = (String) request.getSession().getAttribute("role");
+        if (role != null && role.equals("ROLE_USER") || role != null && role.equals("ROLE_ADMIN")) {
+
+            List<OrdersEntity> listOrder = ordersService.getListOrder();
+            model.addAttribute("listorder", listOrder);
+            return "user/orderList";
+        } else {
+            model.addAttribute("error", "403");
+            return "error/403";
+        }
     }
 
     public void init(Model model) {
@@ -80,4 +98,32 @@ public class UsersController {
         model.addAttribute("listCategory", listCategory);
 
     }
+    @RequestMapping(value = "/profile")
+
+    public String profile(Model model, HttpServletRequest request) {
+        String role = (String) request.getSession().getAttribute("role");
+        if (role != null && role.equals("ROLE_USER")) {
+            init(model);
+            return "/user/profileUser";
+        } else {
+            model.addAttribute("error", "403");
+            return "error/403";
+        }
+    }
+    @RequestMapping(value = "/editprofile")
+
+    public String editprofile(Model model, HttpServletRequest request) {
+
+        UsersEntity user = (UsersEntity) request.getSession().getAttribute("user");
+        String role = (String) request.getSession().getAttribute("role");
+        if (role != null && role.equals("ROLE_USER") && user != null) {
+            init(model);
+            model.addAttribute("user", user);
+            return "/user/edituser";
+        } else {
+            model.addAttribute("error", "403");
+            return "error/403";
+        }
+    }
+
 }

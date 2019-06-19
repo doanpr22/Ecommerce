@@ -18,7 +18,7 @@
             <table class="table table-hover">
                 <tr>
                     <th class="text-center" colspan="2">
-                        <h3><i><span >Thông tin khách hàng</span></i></h3>
+                        <h3><i><span >Thông tin Quản lý</span></i></h3>
                     </th>
                 </tr>
                 <tr>
@@ -79,10 +79,10 @@
                 </tr>
                 <tr>
                     <td>
-                        <a href="http://localhost:8084/E-Commerce/customer/editprofile" class="btn btn-danger text-center"><span>Sửa thông tin</span></a>
+                        <a href="http://localhost:8084/E-Commerce/users/editprofile" class="btn btn-danger text-center"><span>Chỉnh sửa</span></a>
                     </td>
                     <td>
-                      <a href="http://localhost:8084/E-Commerce/customer/listOrder" class="btn btn-success text-center"><span>Đơn hàng</span></a>
+                      <a href="http://localhost:8084/E-Commerce/customer/listOrder" class="btn btn-success text-center"><span>Danh sách đơn hàng</span></a>
                     </td>
                 </tr>
 

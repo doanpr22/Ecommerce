@@ -63,7 +63,7 @@
                         </a>
                         <a class="navbar-brand text-center btn-light btn float-right" href="#">       
                             <i class='fab fa-amazon-pay' style='font-size:20px;color:#155BF2'></i>
-                            <span style='font-size:15px';>Thanh toán</span>
+                            <span style='font-size:15px'>Thanh toán</span>
                         </a>
                     </div>
                 </div>
@@ -118,7 +118,10 @@
                      <td ><strong class="float-left text-left">Trọng lượng: </strong></td>
                      <td><span>${product.productDestails.trongluong}</span></td>
                 </tr>
-                
+                <tr>
+                     <td ><strong class="float-left text-left">Bảo hành: </strong></td>
+                     <td><span>${product.productDestails.baohanh}</span></td>
+                </tr>
             </table>
         </div>
     </div><!-- Product end -->
@@ -136,7 +139,6 @@
                     <div class="title text-center"><a href="<%=request.getContextPath()%>/product-destails?productId=${product.id}"><span><i>${product.productName} ${product.productDestails.bonhotrong} <br>Chính hãng</i></span></a></div>
                     <div class="price">
                         <p class="new-price">${product.unitPriceString}</p>
-                        <s class="old-price">${product.unitPriceString}</s>
                     </div>
 
                 </div>
@@ -157,7 +159,6 @@
                     <div class="title text-center"><a href="<%=request.getContextPath()%>/product-destails?productId=${product.id}"><span><i>${product.productName} ${product.productDestails.bonhotrong} <br>Chính hãng</i></span></a></div>
                     <div class="price">
                         <p class="new-price">${product.unitPriceString}</p>
-                        <s class="old-price">${product.unitPriceString}</s>
                     </div>
 
                 </div>

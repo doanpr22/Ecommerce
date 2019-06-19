@@ -16,20 +16,25 @@
 <section>
     <h2 class="text-center bg-primary">Chọn sản phẩm để xóa</h2>
     <div class="row">
+        <div class="col-md-4"></div>
         <form class="form-inline col-md-6 text-center" action="search">
             <input class="form-control mr-md-2 text-center" name="searchValue" type="text" placeholder="Tìm kiếm...">
             <button class="btn btn-success" type="submit">Tìm kiếm</button>
         </form>
     </div>
+    <script type="text/javascript">
+        function confirmAction() {
+            return confirm("Bạn có muốn xóa sửa sản phẩm này? Hãy cẩn thận!")
+        }
+    </script>
     <ul class="list-sp">
         <c:forEach var="product" items="${productlist}">
             <li class=" border">
-                <div class="product-img"><a href="savedelete?id=${product.id}"><img src="<%=request.getContextPath()%>${product.urlImage}"></a></div>
+                <div class="product-img"><a href="savedelete?id=${product.id}" onclick="return confirmAction()"><img src="<%=request.getContextPath()%>${product.urlImage}"></a></div>
                 <div class="product-info">
                     <div class="title text-center"><a href="savedelete?id=${product.id}"><span><i>${product.productName} ${product.productDestails.bonhotrong} <br>Chính hãng</i></span></a></div>
                     <div class="price">
                         <p class="new-price">${product.unitPriceString}</p>
-                        <s class="old-price">${product.unitPriceString}</s>
                     </div>
 
                 </div>

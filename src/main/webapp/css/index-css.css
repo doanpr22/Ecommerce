@@ -240,7 +240,7 @@ section{
     display: none;
 }
 .form-cart{
-   
+
     margin-top: 20px;
 }
 .position-botton{
@@ -259,7 +259,7 @@ section{
     border-radius: 50px 20px;
 }
 
- .col-left{
+.col-left{
     margin-top: 10px;
     background-color: #58FA82;
 }
@@ -292,4 +292,21 @@ section{
 }
 .red{
     color: red;
+}
+.price{
+
+    padding-left: 40px;
+}
+#button-group{
+    position: relative;
+    top: -150px;
+    left: 20px;
+    display: none;
+}
+.list-sp li:hover {
+    background: #CDF0FB;
+}
+.list-sp .product-img img:hover{
+    position: relative;
+    top: -10px;
 }

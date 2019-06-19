@@ -8,9 +8,9 @@ package service;
 import entity.OrderDestailsEntity;
 import entity.OrdersEntity;
 import java.util.List;
-import org.hibernate.internal.CriteriaImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import repository.OrderDestailsRepository;
 import repository.OrderRepository;
 
 /**
@@ -19,23 +19,53 @@ import repository.OrderRepository;
  */
 @Service
 public class OrdersService {
-    @Autowired OrderRepository orderRepository;
     
-    public List<OrdersEntity> getListOrder(){
-        return (List<OrdersEntity>)orderRepository.findAll();
+    @Autowired
+    OrderRepository orderRepository;
+    @Autowired
+    OrderDestailsRepository orderDestailsRepository;
+    
+    public List<OrdersEntity> getListOrder() {
+        List<OrdersEntity> list = (List<OrdersEntity>) orderRepository.findAll();
+        return list;
     }
-    public OrdersEntity save(OrdersEntity ordersEntity){
-     //   List<OrderDestailsEntity> list=ordersEntity.getOrderDestailsList();
-      //  ordersEntity.setOrderDestailsList(null);
+    
+    public void save(OrdersEntity ordersEntity) {
+        List<OrderDestailsEntity> listOrderDestails = ordersEntity.getOrderDestailsList();
+        ordersEntity.setOrderDestailsList(null);
         
-     ////   ordersEntity=orderRepository.save(ordersEntity);
-      //  for(OrderDestailsEntity ode: list){
+        ordersEntity = orderRepository.save(ordersEntity);
+        
+        for (OrderDestailsEntity ode : listOrderDestails) {
+            OrderDestailsEntity newOrderDestails = new OrderDestailsEntity();
             
-      //  }
-     // ordersEntity.setOrderDestailsList(null);
-        return orderRepository.save(ordersEntity);
+            newOrderDestails.setOrder(ordersEntity);
+            
+            newOrderDestails.setProduct(ode.getProduct());
+            
+            newOrderDestails.setQuantity(ode.getQuantity());
+            
+            orderDestailsRepository.save(newOrderDestails);
+        }
     }
-    public List<OrdersEntity> getOrderbyCustomer(int idCus){
-        return orderRepository.getOrderByCustomer(idCus);
+    
+    public List<OrdersEntity> getOrderbyCustomer(int idCus) {
+      List<OrdersEntity> list=orderRepository.getOrderByCustomer(idCus);
+      for(OrdersEntity order:list){
+          if(order.getOrderDestailsList()==null) list.remove(order);
+      }
+        return list;
+    }
+    
+    public OrdersEntity getOrderById(int id) {
+        return orderRepository.findOne(id);
+    }
+    
+    public void deleteOrderDestails(int orderDestailsId) {
+        
+        OrderDestailsEntity orderDestails = orderDestailsRepository.findOne(orderDestailsId);
+        orderDestails.setOrder(null);
+        orderDestailsRepository.save(orderDestails);
+        orderDestailsRepository.delete(orderDestailsId);
     }
 }

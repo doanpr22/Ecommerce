@@ -38,9 +38,7 @@ public class ProfileEntity {
     @OneToMany(mappedBy = "profile")
     private List<UsersEntity> usersList;
     
-    @OneToMany(mappedBy = "profile")
-    private List<ShippingEntity> shippingList;
-
+    
     public ProfileEntity() {
     }
 
@@ -117,14 +115,7 @@ public class ProfileEntity {
         this.usersList = usersList;
     }
 
-    public List<ShippingEntity> getShippingList() {
-        return shippingList;
-    }
-
-    public void setShippingList(List<ShippingEntity> shippingList) {
-        this.shippingList = shippingList;
-    }
-    public String getGenderString(){
+  public String getGenderString(){
         if(gender) return "Nam";
         return "Nữ";
     }
