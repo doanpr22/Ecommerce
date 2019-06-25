@@ -92,4 +92,27 @@ public class CartController {
         }
         return "redirect:/cart";
     }
+    @RequestMapping(value = "paymentProduct")
+    public String paymentProduct(Model model,@RequestParam(name = "idProduct") int idproduct,HttpServletRequest request){
+        addItemCart(idproduct, model);
+        
+        return "redirect:/payment/orders";
+    }
+    @RequestMapping(value = "deletePayment")
+    public String deleteproductPayment(@RequestParam(name = "id") int orderDestailsId, Model model) {
+    try {     List<OrderDestailsEntity> orderDestailsEntitys = cart.getOrder().getOrderDestailsList();
+
+        for (OrderDestailsEntity destailsEntity : orderDestailsEntitys) {
+
+            if (destailsEntity.getId() == orderDestailsId) {
+
+                orderDestailsEntitys.remove(destailsEntity);
+            }
+        }
+       
+            cart.getOrder().setOrderDestailsList(orderDestailsEntitys);
+        } catch (Exception e) {
+        }
+        return "redirect:/payment/orders";
+    }
 }

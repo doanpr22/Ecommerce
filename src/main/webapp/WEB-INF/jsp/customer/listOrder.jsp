@@ -28,7 +28,7 @@
                         <tr>
                             <td><span><i>${order.id}</i></span></td>
                             <td><span><i>${order.orderDate}</i></span></td>
-                            <td><span><i>${order.paymentType.payentType}</i></span></td>
+                            <td><span><i>${order.paymentType.paymentType}</i></span></td>
                         </tr>
                     </table>
                 </div>

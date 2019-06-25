@@ -24,7 +24,7 @@
 
         <div class="col-md-5">
             <mvc:form  modelAttribute="customer" action="saveRegistration"  method="post" class="form form_register">
-                <h2 class="text-center">Thông tin khách hàng</h2>
+                <h2 class="text-center">Chỉnh sửa thông tin khách hàng</h2>
                 <mvc:hidden path="id"/>
                 <mvc:hidden path="profile.id"/>
                 <div class="form-group">

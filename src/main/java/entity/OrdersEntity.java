@@ -50,7 +50,7 @@ public class OrdersEntity {
     @OneToMany(mappedBy = "order",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<OrderDestailsEntity> orderDestailsList;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "paymentTypeId")
     private PaymentTypeEntity paymentType;
     

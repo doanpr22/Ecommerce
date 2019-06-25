@@ -19,5 +19,8 @@ import org.springframework.stereotype.Repository;
 public interface OrderRepository  extends CrudRepository<OrdersEntity, Integer>{
     @Query(value = "select * from orders where userId=?",nativeQuery = true)
     public List<OrdersEntity> getOrderByCustomer(int customerId);
-    
+    @Query(value = "select *from orders where creditcardid is null; ",nativeQuery = true)
+    public List<OrdersEntity> getOrderUnpaid();
+    @Query(value = "select *from orders where creditcardid is not null; ",nativeQuery = true)
+    public List<OrdersEntity> getOrderPaid();
 }

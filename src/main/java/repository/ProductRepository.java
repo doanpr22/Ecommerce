@@ -35,4 +35,6 @@ public interface ProductRepository extends CrudRepository<ProductEntity, Integer
 
      @Query(value = "select *from Product ORDER BY unitprice DESC LIMIT ?;",nativeQuery = true)
    public List<ProductEntity> getAllDESC(int top);
+    @Query(value = "select *from Product ORDER BY unitprice ASC LIMIT ?;",nativeQuery = true)
+   public List<ProductEntity> getAllASC(int top);
 }

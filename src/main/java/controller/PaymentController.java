@@ -8,6 +8,7 @@ package controller;
 import entity.Cart;
 import entity.CategoryEntity;
 import entity.OrdersEntity;
+import entity.PaymentTypeEntity;
 import entity.ProductEntity;
 import entity.UsersEntity;
 import java.util.List;
@@ -22,6 +23,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import org.springframework.web.bind.annotation.RequestParam;
 import service.CategoryService;
 import service.OrdersService;
+import service.PaymenttypeService;
 import service.ProductDestailsService;
 import service.ProductService;
 import service.UserService;
@@ -47,6 +49,8 @@ public class PaymentController {
     UserService userService;
     @Autowired
     OrdersService ordersService;
+    @Autowired 
+    PaymenttypeService paymenttypeService;
 
     @RequestMapping(method = GET, value = "orders")
 
@@ -56,22 +60,18 @@ public class PaymentController {
             Cart cart = (Cart) request.getSession().getAttribute("cart");
             UsersEntity customer = (UsersEntity) request.getSession().getAttribute("user");
             OrdersEntity order=cart.getOrder();
+            List<PaymentTypeEntity> paymentTypes=paymenttypeService.getListpayment();
             if (customer != null) {
                 order.setUser(customer);
             }
+           model.addAttribute("listPaymentType", paymentTypes);
            model.addAttribute("order", order);
            return "payment";
         } catch (Exception e) {
         }
         return "payment";
     }
-
-    @RequestMapping(value = "card")
-    public String paymentCart(OrdersEntity order, Model model) {
-
-        return "";
-    }
-
+    
 
     public void init(Model model) {
 

@@ -8,6 +8,7 @@ package service;
 import entity.OrderDestailsEntity;
 import entity.OrdersEntity;
 import java.util.List;
+import org.hibernate.internal.CriteriaImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repository.OrderDestailsRepository;
@@ -27,6 +28,9 @@ public class OrdersService {
     
     public List<OrdersEntity> getListOrder() {
         List<OrdersEntity> list = (List<OrdersEntity>) orderRepository.findAll();
+        for(OrdersEntity order:list){
+          if(order.getOrderDestailsList()==null) list.remove(order);
+      }
         return list;
     }
     
@@ -67,5 +71,39 @@ public class OrdersService {
         orderDestails.setOrder(null);
         orderDestailsRepository.save(orderDestails);
         orderDestailsRepository.delete(orderDestailsId);
+    }
+    public List<OrdersEntity> getListOrderUnpaid(){
+        return  filterData(orderRepository.getOrderUnpaid());
+    }
+    public List<OrdersEntity> getListOrderPaid(){
+        return  orderRepository.getOrderPaid();
+    }
+    public List<OrdersEntity> filterData(List<OrdersEntity> listFilter){
+        for(OrdersEntity order: listFilter){
+            if(order.getOrderDestailsList()==null){
+                listFilter.remove(order);
+            }
+        }
+        return listFilter;
+    }
+    
+    public void delete(int orderid){
+        
+        OrdersEntity order=orderRepository.findOne(orderid);
+        List<OrderDestailsEntity> ordeDestailsList=order.getOrderDestailsList();
+        
+        order.setOrderDestailsList(null);
+        order.setCreditCard(null);
+        order.setPaymentType(null);
+        order.setUser(null);
+        orderRepository.save(order);
+        orderRepository.delete(order.getId());
+        
+        for(OrderDestailsEntity orderdestails:ordeDestailsList){
+            orderdestails.setOrder(null);
+            orderdestails.setProduct(null);
+            orderDestailsRepository.save(orderdestails);
+            orderDestailsRepository.delete(orderdestails.getId());
+        }
     }
 }

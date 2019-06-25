@@ -119,8 +119,9 @@
                            data-toggle="dropdown">Quản lý<br/> Đơn hàng</a>
 
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Đơn hàng mới</a>
-                            <a class="dropdown-item" href="#">Đơn hàng đang ship</a>
+                            <a class="dropdown-item" href="http://localhost:8084/E-Commerce/users/listorder?action=all">Tất cả các đơn hàng</a>
+                            <a class="dropdown-item" href="http://localhost:8084/E-Commerce/users/listorder?action=unpaid">Đơn hàng chưa thanh toán</a>
+                             <a class="dropdown-item" href="http://localhost:8084/E-Commerce/users/listorder?action=paid">Đơn hàng đã thanh toán</a>
                             <a class="dropdown-item" id="thong-ke" href="#">Thống kê</a>
                         </div>
                     </li>

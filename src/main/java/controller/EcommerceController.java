@@ -120,22 +120,9 @@ public class EcommerceController {
         }
 
         return "redirect:/";
-        /* if(customer!=null){
-             model.addAttribute("saveRegistration", "success");
-             return "index";
-         }
-         else{
-             return "redirect:/";
-         }*/
-
-        //  String gmailTo="chiyeumoinguoi@gmail.com";
-        //  String subject = "Thế giới di động";
-        //// SendGmail.send("chiyeumoinguoi@gmail.com", subject, "okok");
-        //return customer.toString();
     }
 
     @RequestMapping(value = "/order")
-    //  @ResponseBody
     public String order(OrdersEntity order, Model model, HttpServletRequest request) {
         Cart cart = (Cart) request.getSession().getAttribute("cart");
         if (order.getUser().getId() == 0) {
@@ -154,4 +141,13 @@ public class EcommerceController {
         return index(model, request);
     }
 
+    @RequestMapping(value = "productAsc")
+    public String listProductAsc(Model model, HttpServletRequest request) {
+        init(model);
+        List<ProductEntity> listProduct = productService.getAllProductByAsc(28);
+
+        model.addAttribute("productlistSamePrice", listProduct);
+        return "index";
+
+    }
 }

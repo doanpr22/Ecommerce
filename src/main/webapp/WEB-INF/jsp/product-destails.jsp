@@ -61,7 +61,7 @@
                             <i class='fas fa-cart-arrow-down' style='font-size:20px;color:#155BF2'></i>
                             <span style='font-size:15px'>Thêm vào Giỏ hàng</span>
                         </a>
-                        <a class="navbar-brand text-center btn-light btn float-right" href="#">       
+                        <a class="navbar-brand text-center btn-light btn float-right" href="<%=request.getContextPath()%>/cart/paymentProduct?idProduct=${product.id}">       
                             <i class='fab fa-amazon-pay' style='font-size:20px;color:#155BF2'></i>
                             <span style='font-size:15px'>Thanh toán</span>
                         </a>

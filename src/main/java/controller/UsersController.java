@@ -7,11 +7,8 @@ package controller;
 
 import entity.CategoryEntity;
 import entity.OrdersEntity;
-import entity.ProducersEntity;
 import entity.ProductEntity;
 import entity.UsersEntity;
-import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletContext;
@@ -19,13 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import service.CategoryService;
 import service.OrdersService;
 import service.ProducerService;
@@ -33,7 +28,6 @@ import service.ProductDestailsService;
 import service.ProductImageService;
 import service.ProductService;
 import service.UserService;
-import utility.UpdateFile;
 
 /**
  *
@@ -98,11 +92,12 @@ public class UsersController {
         model.addAttribute("listCategory", listCategory);
 
     }
+
     @RequestMapping(value = "/profile")
 
     public String profile(Model model, HttpServletRequest request) {
         String role = (String) request.getSession().getAttribute("role");
-        if (role != null && role.equals("ROLE_USER")) {
+        if (role != null && role.equals("ROLE_USER") || role != null && role.equals("ROLE_ADMIN")) {
             init(model);
             return "/user/profileUser";
         } else {
@@ -110,16 +105,61 @@ public class UsersController {
             return "error/403";
         }
     }
+
     @RequestMapping(value = "/editprofile")
 
     public String editprofile(Model model, HttpServletRequest request) {
 
         UsersEntity user = (UsersEntity) request.getSession().getAttribute("user");
         String role = (String) request.getSession().getAttribute("role");
-        if (role != null && role.equals("ROLE_USER") && user != null) {
+        if (role != null && role.equals("ROLE_USER") || role != null && role.equals("ROLE_ADMIN")) {
             init(model);
             model.addAttribute("user", user);
             return "/user/edituser";
+        } else {
+            model.addAttribute("error", "403");
+            return "error/403";
+        }
+    }
+
+    @RequestMapping(value = "listorder")
+    public String listorderUnPaid(Model model, HttpServletRequest request, @RequestParam(value = "action") String action) {
+
+        init(model);
+        String role = (String) request.getSession().getAttribute("role");
+        if (role != null && role.equals("ROLE_USER") || role != null && role.equals("ROLE_ADMIN")) {
+           List<OrdersEntity> listorder= new ArrayList<OrdersEntity>();
+            if (action.equals("unPaid")) {
+                listorder = ordersService.getListOrderUnpaid();
+            }
+            if(action.equals("paid")){
+                listorder =ordersService.getListOrderPaid();
+            }
+            else{
+                listorder=ordersService.getListOrder();
+            }
+            model.addAttribute("orderlist", listorder);
+            return "user/listorder";
+        } else {
+            model.addAttribute("error", "403");
+            return "error/403";
+        }
+    }
+
+    @RequestMapping(value = "/deleteOrder")
+    @ResponseBody
+    public String deleteOrder(Model model, HttpServletRequest request, @RequestParam(name = "orderid") int orderId) {
+        init(model);
+        String role = (String) request.getSession().getAttribute("role");
+        if (role != null && role.equals("ROLE_USER") || role != null && role.equals("ROLE_ADMIN")) {
+            try {
+                ordersService.delete(orderId);
+                List<OrdersEntity> listorderUnPaid = ordersService.getListOrder();
+                model.addAttribute("orderlist", listorderUnPaid);
+                return "user/listorder";
+            } catch (Exception e) {
+                return e.toString() + orderId;
+            }
         } else {
             model.addAttribute("error", "403");
             return "error/403";

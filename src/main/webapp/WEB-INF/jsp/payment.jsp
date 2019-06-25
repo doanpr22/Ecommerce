@@ -10,6 +10,11 @@
 <jsp:include page="include/main-left-top.jsp"/>
 
 <main  id="notNullProduct">
+    <script type="text/javascript">
+        function confirmAction() {
+        return confirm("Bạn có muốn đặt hàng các sản phẩm này?")
+    }
+</script>
     <script src="<%=request.getContextPath()%>/js/payment.js"></script>
     <mvc:form modelAttribute="order" action="/E-Commerce/order" method="POST">
         <div class="row">
@@ -38,7 +43,7 @@
                         </td> 
 
                         <td class="actions" data-th="" style="width:10%">
-                            <a class="btn btn-danger btn-sm" id="delete-card" href="<%=request.getContextPath()%>/cart/delete?id=${orderDestails.id}"><i class="fa fa-trash"></i>
+                            <a class="btn btn-danger btn-sm" id="delete-card" href="<%=request.getContextPath()%>/cart/deletePayment?id=${orderDestails.id}"><i class="fa fa-trash"></i>
                             </a>
                         </td> 
                         </tr>
@@ -58,56 +63,69 @@
                 </table>
             </div>
             <div class="container col-md-8 table-payment"> 
-                    <table class="table">
-                        <mvc:hidden path="user.id"/>
-                        <tr>
-                            <td colspan="2" class="text-center"><span><i>Thông tin khách hàng</i></span></td>
-                        </tr>
-                        <tr>
-                            <td style="width: 20%">
-                                Họ: <i style="color: red;">*</i>
-                            </td>
-                            <td style="width: 80%">
-                                <mvc:input path="user.profile.lastname" cssStyle="width: 100%;padding: 10px;border-radius: 50px 20px;" required="" placeholder="Nhập họ của bạn"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width: 20%">
-                                Tên: <i style="color: red;">*</i>
-                            </td>
-                            <td style="width: 80%">
-                                <mvc:input path="user.profile.firstname" cssStyle="width: 100%;padding: 10px;border-radius: 50px 20px;" required="" placeholder="Nhập Tên của bạn"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width: 20%">
-                                Số điện thoại: <i style="color: red;">*</i>
-                            </td>
-                            <td style="width: 80%">
-                                <mvc:input path="user.profile.phone" cssStyle="width: 100%;padding: 10px;border-radius: 50px 20px;" required="" placeholder="Nhập số điện thoại"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Email:
-                            </td>
-                            <td>
-                                <mvc:input path="user.profile.email" cssStyle="width: 100%;padding: 10px;border-radius: 50px 20px;" required="" placeholder="Nhập địa chỉ Email"/>
-                                <p>(Chi tiết đơn hàng sẽ được gửi vào email)</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <a style="width: 40%;padding: 10px" class="float-left btn btn-success" type="button" value="next">Tiếp tục  <i style="font-size: 30px;"class="fas fa-angle-double-right float-right"></i></a>
+                <table class="table">
+                    <mvc:hidden path="user.id"/>
+                    <tr>
+                        <td colspan="2" class="text-center"><span><i>Thông tin khách hàng</i></span></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%">
+                            Họ: <i style="color: red;">*</i>
+                        </td>
+                        <td style="width: 80%">
+                            <mvc:input path="user.profile.lastname" cssStyle="width: 100%;padding: 10px;border-radius: 50px 20px;" required="" placeholder="Nhập họ của bạn"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%">
+                            Tên: <i style="color: red;">*</i>
+                        </td>
+                        <td style="width: 80%">
+                            <mvc:input path="user.profile.firstname" cssStyle="width: 100%;padding: 10px;border-radius: 50px 20px;" required="" placeholder="Nhập Tên của bạn"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%">
+                            Số điện thoại: <i style="color: red;">*</i>
+                        </td>
+                        <td style="width: 80%">
+                            <mvc:input path="user.profile.phone" cssStyle="width: 100%;padding: 10px;border-radius: 50px 20px;" required="" placeholder="Nhập số điện thoại"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Email:
+                        </td>
+                        <td>
+                            <mvc:input path="user.profile.email" cssStyle="width: 100%;padding: 10px;border-radius: 50px 20px;" required="" placeholder="Nhập địa chỉ Email"/>
+                            <p>(Chi tiết đơn hàng sẽ được gửi vào email)</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Loại thanh toán:
+                        </td>
+                        <td>
+                            <mvc:select path="paymentType.id" items="${listPaymentType}" itemValue="id" itemLabel="paymentType"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <a style="width: 40%;padding: 10px" class="float-left btn btn-success">Chuyển khoản 
+                                <i style="font-size: 30px;"class="fas fa-angle-double-right float-right"></i></a>
                                 <input style="width: 40%;padding: 10px" class="float-right btn btn-primary fas fa-phone-volume float-right" type="submit" value="Đặt hàng ngay"/>
-                            </td>
-                        </tr>
-                    </table>
+                        </td>
+                    </tr>
+
+                </table>
+
             </div>   
         </div>
 
     </mvc:form>
+
+
 </main>
 <main id="nullProduct">
     <h2 class="text-center">Chưa có sản phẩm để thanh toán!<br> Nhấn vào <a href="<%=request.getContextPath()%>">tôi</a> trở về trang chủ</h2>

@@ -24,7 +24,7 @@ public class PaymentTypeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String payentType;
+    private String paymentType;
 
     @OneToMany(mappedBy = "paymentType")
     private List<OrdersEntity> orderList;
@@ -40,13 +40,15 @@ public class PaymentTypeEntity {
         this.id = id;
     }
 
-    public String getPayentType() {
-        return payentType;
+    public String getPaymentType() {
+        return paymentType;
     }
 
-    public void setPayentType(String payentType) {
-        this.payentType = payentType;
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
     }
+
+  
 
     public List<OrdersEntity> getOrderList() {
         return orderList;

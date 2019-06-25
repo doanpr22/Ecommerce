@@ -34,6 +34,7 @@ public class ProducersEntity {
     private List<ProductEntity> productList;
 
     public ProducersEntity() {
+       
     }
 
     public ProducersEntity(int id) {

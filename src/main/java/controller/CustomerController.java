@@ -116,15 +116,10 @@ public class CustomerController {
 
         } catch (Exception e) {
             return "redirect:/";
-            // return e.toString();
+           
         }
 
-        // return "customer/orderList";
-        /*
-        
-        UsersEntity customer = (UsersEntity) request.getSession().getAttribute("user");
-        List<OrdersEntity> listOrder = ordersService.getOrderbyCustomer(customer.getId());
-        model.addAttribute("listOrder", listOrder);*/
+     
     }
 
     @RequestMapping(value = "saveRegistration")

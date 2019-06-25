@@ -10,4 +10,5 @@ $(document).ready(function () {
     var order=${order};
     var size= order.orderDestailsList().size();
     $('#orderDestails.size').test(size);
+    
 };

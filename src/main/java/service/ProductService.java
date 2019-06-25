@@ -107,6 +107,9 @@ public class ProductService {
     public List<ProductEntity> getAllProductByDesc(int top) {
         return filterData(productRepository.getAllDESC(top));
     }
+    public List<ProductEntity> getAllProductByAsc(int top) {
+        return filterData(productRepository.getAllASC(top));
+    }
 
     public List<ProductEntity> filterData(List<ProductEntity> productList) {
         List<ProductEntity> list = new ArrayList<ProductEntity>();
